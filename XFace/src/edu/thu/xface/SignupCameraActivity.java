@@ -70,6 +70,7 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 		if (!bPictaken) {
 			ToastUtil.showShortToast(getApplicationContext(), "未拍照所以注册失败！");
 			SignupCameraActivity.this.finish();
+			return;//do not forget!
 		}
 		// async do -> runtime exception: method called after release()
 		// maybe the activity releases before the thread returns!

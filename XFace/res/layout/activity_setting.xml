@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/app_default"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_setting_top"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:background="@drawable/title_bar" >
+        
+        <Button
+            android:id="@+id/btn_setting_back"
+            android:layout_width="@dimen/btn_titlebar_size"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/btn_title_back"
+            android:onClick="btn_setting_back"
+            android:text="返回"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_titlebar_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="设  置"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_titlebar_center"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_settings_version"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/preference_first_item"
+        android:clickable="true"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/iv_settings_versionupdate"
+            android:layout_width="@dimen/preference_item_image"
+            android:layout_height="@dimen/preference_item_image"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:src="@drawable/setting_round" />
+
+        <TextView
+            android:id="@+id/tv_settings_versionupdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/iv_settings_versionupdate"
+            android:padding="@dimen/preference_item_padding"
+            android:text="版本更新"
+            android:textColor="@color/text_preference_key"
+            android:textSize="@dimen/text_preference_item" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/preference_item_padding"
+            android:text=" 当前版本 0.1"
+            android:textColor="@color/text_preference_value"
+            android:textSize="@dimen/text_preference_item" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_settings_suggestion"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/preference_item"
+        android:clickable="true"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/iv_settings_feedback"
+            android:layout_width="@dimen/preference_item_image"
+            android:layout_height="@dimen/preference_item_image"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:src="@drawable/setting_message" />
+
+        <TextView
+            android:id="@+id/tv_settings_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/iv_settings_feedback"
+            android:padding="@dimen/preference_item_padding"
+            android:text="意见反馈"
+            android:textColor="@color/text_preference_key"
+            android:textSize="@dimen/text_preference_item" />
+
+        <ImageView
+            android:id="@+id/iv_settings_feedbackto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tv_settings_feedback"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/iv_preference_arrowright"
+            android:scaleType="matrix" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_settings_about"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/preference_last_item"
+        android:clickable="true"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/iv_settings_aboutus"
+            android:layout_width="@dimen/preference_item_image"
+            android:layout_height="@dimen/preference_item_image"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:src="@drawable/cloud_purple_no" />
+
+        <TextView
+            android:id="@+id/tv_settings_aboutus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/iv_settings_aboutus"
+            android:padding="@dimen/preference_item_padding"
+            android:text="关于作者"
+            android:textColor="@color/text_preference_key"
+            android:textSize="@dimen/text_preference_item" />
+
+        <ImageView
+            android:id="@+id/iv_settings_aboutusto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/iv_preference_arrowright"
+            android:scaleType="matrix" />
+    </RelativeLayout>
+
+    <!--
+    <Button
+        android:id="@+id/btn_setting_exit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="@dimen/preference_item_padding"
+        android:layout_marginRight="@dimen/preference_item_padding"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/btn_style_green"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="退  出"
+        android:textColor="@color/text_default"
+        android:textSize="@dimen/btn_big_textsize" />
+    -->
+
+</LinearLayout>

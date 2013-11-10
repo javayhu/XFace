@@ -35,6 +35,8 @@
         <activity android:name="edu.thu.xface.SignupActivity" />
         <activity android:name="edu.thu.xface.SignupCameraActivity" />
         <activity android:name="edu.thu.xface.FacerecCameraActivity" />
+        <activity android:name="edu.thu.xface.AboutActivity" />
+        <activity android:name="edu.thu.xface.SettingActivity" />
         <activity android:name="edu.thu.xface.DemoActivity" />
     </application>
 

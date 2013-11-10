@@ -71,7 +71,7 @@ static void read_csv(const string& filename, vector<Mat>& images,
 		result = -2;
 		return result;
 	}
-	Ptr<FaceRecognizer> model = createEigenFaceRecognizer(component, threshold);
+	Ptr<FaceRecognizer> model = createEigenFaceRecognizer();//component, threshold
 	model->train(images, labels);
 //	xfacerecognizer = model.obj;
 //	result = (jlong) xfacerecognizer;
