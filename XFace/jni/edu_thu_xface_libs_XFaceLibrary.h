@@ -12,7 +12,7 @@ extern "C" {
  * Method:    nativeInitFacerec
  * Signature: (Ljava/lang/String;Ljava/lang/String;)I
  */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeInitFacerec(
-		JNIEnv *, jclass, jstring, jstring, jint, jdouble);
+		JNIEnv *, jclass, jstring, jstring, jint, jdouble, jint);
 /*
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeFacerec

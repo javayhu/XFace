@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/titlebar_height"
         android:background="@drawable/title_bar" >
-        
+
         <Button
             android:id="@+id/btn_setting_back"
             android:layout_width="@dimen/btn_titlebar_size"
@@ -38,7 +38,90 @@
         android:id="@+id/rl_settings_version"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/preference_first_item"
+        android:clickable="true"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/iv_settings_facarec"
+            android:layout_width="@dimen/preference_item_image"
+            android:layout_height="@dimen/preference_item_image"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:src="@drawable/setting_round" />
+
+        <TextView
+            android:id="@+id/tv_settings_facerec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/iv_settings_facarec"
+            android:padding="@dimen/preference_item_padding"
+            android:text="选择人脸识别算法"
+            android:textColor="@color/text_preference_key"
+            android:textSize="@dimen/text_preference_item" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/preference_last_item"
+        android:clickable="true"
+        android:gravity="center_vertical" >
+
+        <RadioGroup
+            android:id="@+id/rg_setting_facerec"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rb_face_eigen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:button="@drawable/checkbox_selector"
+                android:clickable="true"
+                android:onClick="rb_face_eigen"
+                android:text="Eigen"
+                android:textAlignment="center"
+                android:textColor="#333" />
+
+            <RadioButton
+                android:id="@+id/rb_face_fisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/rb_face_eigen"
+                android:button="@drawable/checkbox_selector"
+                android:clickable="true"
+                android:onClick="rb_face_fisher"
+                android:text="Fisher"
+                android:textAlignment="center"
+                android:textColor="#333" />
+
+            <RadioButton
+                android:id="@+id/rb_face_lbph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/rb_face_fisher"
+                android:button="@drawable/checkbox_selector"
+                android:clickable="true"
+                android:onClick="rb_face_lbph"
+                android:text="LBPH"
+                android:textAlignment="center"
+                android:textColor="#333" />
+        </RadioGroup>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_settings_version"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:background="@drawable/preference_first_item"
         android:clickable="true"
         android:gravity="center_vertical" >

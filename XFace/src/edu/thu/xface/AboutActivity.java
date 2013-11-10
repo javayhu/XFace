@@ -6,8 +6,6 @@ import android.view.View;
 
 public class AboutActivity extends Activity {
 
-	private static final String TAG = "AboutActivity";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -99,7 +99,7 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 		try {
 			CommonUtil.userProps.setProperty("total", String.valueOf(id));
 			CommonUtil.userProps.setProperty(String.valueOf(id), name);
-			CommonUtil.saveProperties(CommonUtil.userProps);
+			CommonUtil.saveUserProperties(CommonUtil.userProps);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

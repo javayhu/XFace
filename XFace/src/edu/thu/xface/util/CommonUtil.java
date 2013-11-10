@@ -20,6 +20,12 @@ public class CommonUtil {
 	public static final String USERS_FILENAME = "users.properties";// user infos
 	public static final String FACEDATA_FILENAME = "facedata.txt";// face data file
 	public static final String FACERECMODEL_FILENAME = "facerec.yml";// facerec model file
+	
+	public static final String FACE_ALGORITHM="facerecognizer";
+	public static final String FACE_EIGEN="eigenface";
+	public static final String FACE_FISHER="fisherface";
+	public static final String FACE_LBPH="lbphface";
+	
 
 	public static String FACEDATA_FILEPATH;
 	public static String FACERECMODEL_FILEPATH;
@@ -37,6 +43,8 @@ public class CommonUtil {
 	
 	public static int EIGEN_COMPONENT = 10;
 	public static double EIGEN_THRESHOLD = 0.0;
+	
+	public static String FACERECOGNIZER = FACE_EIGEN;//eigenface fisherface lbphface
 
 	// static code block
 	static {
@@ -71,6 +79,11 @@ public class CommonUtil {
 				} else {
 					userProps.load(new FileInputStream(userFile));
 				}
+				FACERECOGNIZER = userProps.getProperty(FACE_ALGORITHM);//load facerec
+				if (FACERECOGNIZER == null) {
+					userProps.setProperty(FACE_ALGORITHM, FACE_EIGEN);
+					saveUserProperties(userProps);
+				}
 				File facedataFile = new File(SDFOLDER.getAbsoluteFile() + File.separator + FACEDATA_FILENAME);
 				if (!facedataFile.exists()) {
 					facedataFile.createNewFile();
@@ -84,7 +97,7 @@ public class CommonUtil {
 	}
 
 	// save properties !
-	public static void saveProperties(Properties properties) throws Exception {
+	public static void saveUserProperties(Properties properties) throws Exception {
 		OutputStream os = new FileOutputStream(SDFOLDER.getAbsoluteFile() + File.separator + USERS_FILENAME);
 		properties.store(os, "config updated:" + System.currentTimeMillis());
 	}

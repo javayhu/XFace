@@ -13,7 +13,6 @@ import android.view.View;
 public class LogoActivity extends Activity {
 
 	private static final String TAG = "LogoActivity";
-	private MenuItem itemSetting;
 
 	static {
 		// System.loadLibrary("opencv_java");
@@ -35,7 +34,7 @@ public class LogoActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		Log.i(TAG, "called onCreateOptionsMenu");
-		itemSetting = menu.add("Setting");
+		menu.add("Setting");
 		return true;
 	}
 

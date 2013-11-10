@@ -15,8 +15,14 @@ public class XFaceLibrary {
 	private static long xfacerec = 0;
 
 	public static long initFacerec() {
+		int face = 1;
+		if (CommonUtil.FACERECOGNIZER.equalsIgnoreCase(CommonUtil.FACE_FISHER)) {
+			face = 2;
+		} else if (CommonUtil.FACERECOGNIZER.equalsIgnoreCase(CommonUtil.FACE_LBPH)) {
+			face = 3;
+		}
 		xfacerec = nativeInitFacerec(CommonUtil.FACEDATA_FILEPATH, CommonUtil.FACERECMODEL_FILEPATH,
-				CommonUtil.EIGEN_COMPONENT, CommonUtil.EIGEN_THRESHOLD);
+				CommonUtil.EIGEN_COMPONENT, CommonUtil.EIGEN_THRESHOLD, face);
 		return xfacerec;
 	}
 
@@ -29,10 +35,11 @@ public class XFaceLibrary {
 		return nativeDestoryFacerec(xfacerec);
 	}
 
-	public static native long nativeInitFacerec(String datapath, String modelpath, int component, double threshold);
+	public static native long nativeInitFacerec(String datapath, String modelpath, int component, double threshold,
+			int facerec);
 
 	public static native int nativeFacerec(long xfacerec, String modelpath, long addr, int width, int height);
-	
+
 	public static native int nativeDestoryFacerec(long xfacerec);
 
 }

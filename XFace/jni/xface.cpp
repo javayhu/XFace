@@ -44,8 +44,8 @@ static void read_csv(const string& filename, vector<Mat>& images,
  * Signature: (Ljava/lang/String;Ljava/lang/String;)I
  */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeInitFacerec(
 		JNIEnv * jenv, jclass jclazz, jstring jdatapath, jstring jmodelpath,
-		jint component, jdouble threshold) {
-	LOGD("native init facerec");
+		jint component, jdouble threshold, jint facerec) {
+	LOGD("native init facerec type=%d", facerec);
 	const char* dpath = jenv->GetStringUTFChars(jdatapath, NULL);
 	string datapath(dpath);
 	const char* mpath = jenv->GetStringUTFChars(jmodelpath, NULL);
@@ -71,7 +71,14 @@ static void read_csv(const string& filename, vector<Mat>& images,
 		result = -2;
 		return result;
 	}
-	Ptr<FaceRecognizer> model = createEigenFaceRecognizer();//component, threshold
+	Ptr<FaceRecognizer> model;
+	if (facerec == 1) {
+		model = createEigenFaceRecognizer(); //component, threshold
+	} else if (facerec == 2) {
+		model = createFisherFaceRecognizer(); //component, threshold
+	} else {
+		model = createEigenFaceRecognizer(); //component, threshold
+	}
 	model->train(images, labels);
 //	xfacerecognizer = model.obj;
 //	result = (jlong) xfacerecognizer;
