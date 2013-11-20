@@ -1,8 +1,5 @@
 XFace
 =====
+The Face Recognition Application running on Android.
 
-<<<<<<< HEAD
-The Face Recognition Applications for edx in the future.
-=======
-The Face Recognition App 
->>>>>>> 04acb7c997546da714423d3c58ce9945bd2ec583
+XFace是运行与Android的人脸识别应用程序，我正在开发中......
