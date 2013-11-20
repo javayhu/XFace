@@ -11,7 +11,7 @@ include ${OPENCVROOT}/sdk/native/jni/OpenCV.mk
 #C++
 LOCAL_SRC_FILES := xface.cpp
 #LOCAL_C_INCLUDES += $(LOCAL_PATH)
-LOCAL_LDLIBS     += -llog -ldl
+LOCAL_LDLIBS     += -llog
 
 LOCAL_MODULE    := xface
 
