@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.thu.xface"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.front" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.front.autofocus" android:required="false"/>
+
+    <!-- 屏幕为肖像模式 -->
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:screenOrientation="portrait"
+        android:label="@string/app_name"
+        android:theme="@style/android:Theme.NoTitleBar" >
+        <activity
+            android:name="edu.thu.xface.LogoActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="edu.thu.xface.SignupActivity" />
+        <activity android:name="edu.thu.xface.SignupCameraActivity" />
+        <activity android:name="edu.thu.xface.FacerecCameraActivity" />
+        <activity android:name="edu.thu.xface.AboutActivity" />
+        <activity android:name="edu.thu.xface.SettingActivity" />
+        <activity android:name="edu.thu.xface.DemoActivity" />
+    </application>
+
+</manifest>

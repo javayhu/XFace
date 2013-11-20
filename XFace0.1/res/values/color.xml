@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="text_default">#ffffff</color>
+
+    
+    <color name="app_default">#711098</color>
+    <color name="text_orange">#ff6600</color>
+    <color name="text_green">#009e0e</color>
+    <color name="text_light">#666</color>
+    <color name="text_blue">#36c</color>
+    
+    <color name="text_toolbar_normal">#ffffff</color>
+    <color name="text_toolbar_select">#711098</color>
+    <color name="text_titlebar_normal">#ffffff</color>
+    <color name="text_titlebar_select">#711098</color>
+    
+    <color name="text_preference_key">#000</color>
+    <color name="text_preference_value">#f60</color>
+    
+
+</resources>
