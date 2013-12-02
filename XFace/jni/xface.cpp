@@ -104,9 +104,11 @@ static void read_csv(const string& filename, vector<Mat>& images,
 	string modelpath(mpath);
 	jint result = -1;
 	Mat sample = *((Mat*) mataddr);
-	//	LOGD("sample width=%d,height=%d",sample.cols,sample.rows);//320*240
 	//process image first
-	flip(sample.t(), sample, 0);
+	if(sample.rows < sample.cols){//when rows < cols, that is height < width
+		flip(sample.t(), sample, 0);//**no need to flip now!**wrong**
+	}
+	LOGD("########## sample width=%d,height=%d",sample.cols,sample.rows);//320*240
 	resize(sample, sample, Size(width, height));
 	//	imwrite("/mnt/sdcard/xface/sample.jpg", sample);
 	//	result = ((FaceRecognizer*)jthiz)->predict(sample);

@@ -7,7 +7,7 @@
     <org.opencv.android.JavaCameraView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        opencv:camera_id="back"
+        opencv:camera_id="front"
         android:id="@+id/fd_activity_surface_view" />
 
 </LinearLayout>

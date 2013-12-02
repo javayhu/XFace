@@ -22,6 +22,7 @@ public class LogoActivity extends Activity {
 			Log.i(TAG, "OpenCV load not successfully");
 		} else {
 			System.loadLibrary("xface");
+//			System.loadLibrary("detection_based_tracker");
 		}
 	}
 

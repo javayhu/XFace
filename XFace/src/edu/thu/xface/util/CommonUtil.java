@@ -20,6 +20,7 @@ public class CommonUtil {
 	public static final String USERS_FILENAME = "users.properties";// user infos
 	public static final String FACEDATA_FILENAME = "facedata.txt";// face data file
 	public static final String FACERECMODEL_FILENAME = "facerec.yml";// facerec model file
+	public static final String LBPCASCADE_FILENAME = "lbpcascade_frontalface.yml";// lbp cascade face file
 	
 	public static final String FACE_ALGORITHM="facerecognizer";
 	public static final String FACE_EIGEN="eigenface";
@@ -29,6 +30,7 @@ public class CommonUtil {
 
 	public static String FACEDATA_FILEPATH;
 	public static String FACERECMODEL_FILEPATH;
+	public static String LBPCASCADE_FILEPATH;
 
 	public static Properties props = new Properties();
 	public static Properties userProps = new Properties();
@@ -72,24 +74,28 @@ public class CommonUtil {
 				IMAGE_HEIGHT = Integer.parseInt(getValue("image_height"));
 				EIGEN_COMPONENT = Integer.parseInt(getValue("eigen_component"));
 				EIGEN_THRESHOLD = Double.parseDouble(getValue("eigen_threshold"));
-				//
+				
+				// user properties
 				File userFile = new File(SDFOLDER.getAbsoluteFile() + File.separator + USERS_FILENAME);
 				if (!userFile.exists()) {
 					userFile.createNewFile();
 				} else {
 					userProps.load(new FileInputStream(userFile));
 				}
-				FACERECOGNIZER = userProps.getProperty(FACE_ALGORITHM);//load facerec
+				FACERECOGNIZER = userProps.getProperty(FACE_ALGORITHM);//load FACE_ALGORITHM
 				if (FACERECOGNIZER == null) {
 					userProps.setProperty(FACE_ALGORITHM, FACE_EIGEN);
 					saveUserProperties(userProps);
+					FACERECOGNIZER = FACE_EIGEN;
 				}
 				File facedataFile = new File(SDFOLDER.getAbsoluteFile() + File.separator + FACEDATA_FILENAME);
 				if (!facedataFile.exists()) {
 					facedataFile.createNewFile();
 				}
-				FACEDATA_FILEPATH = facedataFile.getAbsolutePath();
-				FACERECMODEL_FILEPATH = SDFOLDER.getAbsolutePath() + File.separator + FACERECMODEL_FILENAME;
+				FACEDATA_FILEPATH = facedataFile.getAbsolutePath();//data
+				FACERECMODEL_FILEPATH = SDFOLDER.getAbsolutePath() + File.separator + FACERECMODEL_FILENAME;//model
+				LBPCASCADE_FILEPATH = SDFOLDER.getAbsolutePath() + File.separator + LBPCASCADE_FILENAME;//cascade
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,10 +105,10 @@ public class CommonUtil {
 	// save properties !
 	public static void saveUserProperties(Properties properties) throws Exception {
 		OutputStream os = new FileOutputStream(SDFOLDER.getAbsoluteFile() + File.separator + USERS_FILENAME);
-		properties.store(os, "config updated:" + System.currentTimeMillis());
+		properties.store(os, "user data updated:" + System.currentTimeMillis());
 	}
 
-	// get value for the specified key
+	// get config value for the specified key
 	public static String getValue(String key) {
 		return props.getProperty(key);
 	}

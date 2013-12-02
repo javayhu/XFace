@@ -401,11 +401,10 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
 			Canvas canvas = getHolder().lockCanvas();
 			if (canvas != null) {
 				// hujiawei
-				/*
-				 canvas.drawColor(0, android.graphics.PorterDuff.Mode.CLEAR);
-				 canvas.drawBitmap(mCacheBitmap, (canvas.getWidth() - mCacheBitmap.getWidth()) / 2,
-				 (canvas.getHeight() - mCacheBitmap.getHeight()) / 2, null);
-				 */
+				// 2013-11-30 change back to original
+//				 canvas.drawColor(0, android.graphics.PorterDuff.Mode.CLEAR);
+//				 canvas.drawBitmap(mCacheBitmap, (canvas.getWidth() - mCacheBitmap.getWidth()) / 2,
+//				 (canvas.getHeight() - mCacheBitmap.getHeight()) / 2, null);
 				// hujiawei add begin
 				// ABC : Fixed for image rotation
 				Matrix matrix = new Matrix();

@@ -1,5 +1,7 @@
 package edu.thu.xface;
 
+import org.opencv.samples.facedetect.FdActivity;
+
 import edu.thu.xface.util.CommonUtil;
 import android.app.Activity;
 import android.content.Intent;
@@ -30,7 +32,8 @@ public class SettingActivity extends Activity {
 		rl_settings_about = (RelativeLayout) findViewById(R.id.rl_settings_about);
 		rl_settings_about.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent(SettingActivity.this, AboutActivity.class);
+//				Intent intent = new Intent(SettingActivity.this, AboutActivity.class);
+				Intent intent = new Intent(SettingActivity.this, FdActivity.class);
 				startActivity(intent);
 			}
 		});

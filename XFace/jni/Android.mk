@@ -16,3 +16,11 @@ LOCAL_LDLIBS     += -llog
 LOCAL_MODULE    := xface
 
 include $(BUILD_SHARED_LIBRARY)
+
+
+#include $(CLEAR_VARS)
+#LOCAL_SRC_FILES  := DetectionBasedTracker_jni.cpp
+#LOCAL_C_INCLUDES += $(LOCAL_PATH)
+#LOCAL_LDLIBS     += -llog -ldl
+#LOCAL_MODULE     := detection_based_tracker
+#include $(BUILD_SHARED_LIBRARY)

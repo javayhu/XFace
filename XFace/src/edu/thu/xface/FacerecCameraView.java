@@ -10,6 +10,11 @@ import android.hardware.Camera.PictureCallback;
 import android.util.AttributeSet;
 import android.util.Log;
 
+/**
+ * now useless
+ * @author hujiawei
+ *
+ */
 public class FacerecCameraView extends JavaCameraView implements PictureCallback {
 
 	private static final String TAG = "FacerecCameraView";
