@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 public class SettingActivity extends Activity {
 
 	private RelativeLayout rl_settings_about;
+	private RelativeLayout rl_settings_suggestion;
 	private RadioButton rb_face_eigen;
 	private RadioButton rb_face_fisher;
 	private RadioButton rb_face_lbph;
@@ -29,18 +30,25 @@ public class SettingActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setting);
 
-		rl_settings_about = (RelativeLayout) findViewById(R.id.rl_settings_about);
-		rl_settings_about.setOnClickListener(new OnClickListener() {
+		rl_settings_suggestion = (RelativeLayout) findViewById(R.id.rl_settings_suggestion);
+		rl_settings_suggestion.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-//				Intent intent = new Intent(SettingActivity.this, AboutActivity.class);
 				Intent intent = new Intent(SettingActivity.this, FdActivity.class);
 				startActivity(intent);
 			}
 		});
-		
-		rb_face_eigen=(RadioButton) findViewById(R.id.rb_face_eigen);
-		rb_face_fisher=(RadioButton) findViewById(R.id.rb_face_fisher);
-		rb_face_lbph=(RadioButton) findViewById(R.id.rb_face_lbph);
+
+		rl_settings_about = (RelativeLayout) findViewById(R.id.rl_settings_about);
+		rl_settings_about.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(SettingActivity.this, AboutActivity.class);
+				startActivity(intent);
+			}
+		});
+
+		rb_face_eigen = (RadioButton) findViewById(R.id.rb_face_eigen);
+		rb_face_fisher = (RadioButton) findViewById(R.id.rb_face_fisher);
+		rb_face_lbph = (RadioButton) findViewById(R.id.rb_face_lbph);
 
 		if (CommonUtil.FACERECOGNIZER.equalsIgnoreCase(CommonUtil.FACE_EIGEN)) {
 			rb_face_eigen.setChecked(true);
