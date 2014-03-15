@@ -1,0 +1,17 @@
+经过一番尝试之后，我发现，摄像头的预览界面还是使用小屏幕！
+
+一是速度快，二是便于图像处理
+
+想要预览界面充满屏幕需要使用 android:screenOrientation="landscape" ，此外还要保证布局没有问题
+
+想要使得小屏幕预览界面图像在portrait模式下不出问题，还需要修改opencv library中的代码
+修改之后在landscape模式下图像有误，不管，只使用portrait模式下的图像
+
+默认情况下，face-detection项目中对人脸的检测是landscape模式的，处于portrait不能检测或者检测有误
+
+可不可以直接使用JavaCV搞定？
+ 
+android:configChanges="orientation|screenSize"
+ 
+ 
+ 

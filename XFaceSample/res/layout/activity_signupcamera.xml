@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:opencv="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <RelativeLayout
+        android:id="@+id/rl_camera_top"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/title_bar" >
+
+        <Button
+            android:id="@+id/btn_camera_back"
+            android:layout_width="@dimen/btn_titlebar_size"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/btn_title_back"
+            android:onClick="btn_camera_back"
+            android:text="Cancel"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_titlebar_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Sign up!"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_titlebar_center"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_camera_ok"
+            android:layout_width="@dimen/btn_titlebar_size"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/btn_title_function"
+            android:onClick="btn_camera_ok"
+            android:text="Finish"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_titlebar_size" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_camera_takepic"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/btn_style_green"
+        android:onClick="btn_camera_takepic"
+        android:text="Take picture NOW!"
+        android:textColor="@color/text_default"
+        android:textSize="@dimen/btn_big_textsize" />
+
+    <edu.thu.xface.SignupCameraView
+        android:id="@+id/cv_camera_signup"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/btn_camera_takepic"
+        android:layout_below="@+id/rl_camera_top"
+        android:visibility="gone"
+        opencv:camera_id="front"
+        opencv:show_fps="true" />
+
+    <!-- camera_id: "any", "back", "front" or by number value -->
+    <!-- hujiawei add two opencv parameters -->
+
+</RelativeLayout>
