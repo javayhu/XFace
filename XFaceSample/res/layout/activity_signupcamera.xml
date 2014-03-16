@@ -52,9 +52,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/btn_style_green"
         android:onClick="btn_camera_takepic"
         android:text="Take picture NOW!"
@@ -67,7 +68,7 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/btn_camera_takepic"
         android:layout_below="@+id/rl_camera_top"
-        android:visibility="gone"
+        android:visibility="visible"
         opencv:camera_id="front"
         opencv:show_fps="true" />
 

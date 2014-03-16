@@ -1,6 +1,7 @@
 package edu.thu.xface.libs;
 
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfRect;
 
 import edu.thu.xface.util.CommonUtil;
 
@@ -12,9 +13,10 @@ import edu.thu.xface.util.CommonUtil;
  */
 public class XFaceLibrary {
 
-	private static long xfacerec = 0;
+	// face recognition!!
+	private long xfacerec = 0;
 
-	public static long initFacerec() {
+	public long initFacerec() {
 		int face = 1;
 		if (CommonUtil.FACERECOGNIZER.equalsIgnoreCase(CommonUtil.FACE_FISHER)) {
 			face = 2;
@@ -26,12 +28,12 @@ public class XFaceLibrary {
 		return xfacerec;
 	}
 
-	public static int facerec(Mat mat) {
+	public int facerec(Mat mat) {
 		return nativeFacerec(xfacerec, CommonUtil.FACERECMODEL_FILEPATH, mat.getNativeObjAddr(),
 				CommonUtil.IMAGE_WIDTH, CommonUtil.IMAGE_HEIGHT);
 	}
 
-	public static int destoryFacerec() {
+	public int destoryFacerec() {
 		return nativeDestoryFacerec(xfacerec);
 	}
 
@@ -41,5 +43,45 @@ public class XFaceLibrary {
 	public static native int nativeFacerec(long xfacerec, String modelpath, long addr, int width, int height);
 
 	public static native int nativeDestoryFacerec(long xfacerec);
+
+	// face detecion!!!
+	private long mNativeObj = 0;
+
+	public XFaceLibrary(String cascadeName, int minFaceSize) {
+		mNativeObj = nativeCreateObject(cascadeName, minFaceSize);
+	}
+
+	public void start() {
+		nativeStart(mNativeObj);
+	}
+
+	public void stop() {
+		nativeStop(mNativeObj);
+	}
+
+	public void setMinFaceSize(int size) {
+		nativeSetFaceSize(mNativeObj, size);
+	}
+
+	public void detect(Mat imageGray, MatOfRect faces) {
+		nativeDetect(mNativeObj, imageGray.getNativeObjAddr(), faces.getNativeObjAddr());
+	}
+
+	public void release() {
+		nativeDestroyObject(mNativeObj);
+		mNativeObj = 0;
+	}
+
+	private static native long nativeCreateObject(String cascadeName, int minFaceSize);
+
+	private static native void nativeDestroyObject(long thiz);
+
+	private static native void nativeStart(long thiz);
+
+	private static native void nativeStop(long thiz);
+
+	private static native void nativeSetFaceSize(long thiz, int size);
+
+	private static native void nativeDetect(long thiz, long inputImage, long faces);
 
 }

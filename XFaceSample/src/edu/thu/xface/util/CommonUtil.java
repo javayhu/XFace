@@ -3,10 +3,15 @@ package edu.thu.xface.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+import edu.thu.xface.R;
+
+import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 /**
  * 公共参数工具类
@@ -15,6 +20,8 @@ import android.os.Environment;
  * 
  */
 public class CommonUtil {
+	
+	private static final String TAG = "CommonUtil";
 
 	public static final String CONFIG_FILENAME = "config.properties";// app config
 	public static final String USERS_FILENAME = "users.properties";// user infos
@@ -38,6 +45,8 @@ public class CommonUtil {
 	public static File USERFOLDER;// save user data
 	public static File CAMERAFOLDER;// save camera take pics
 	public static File DEMOFOLDER;// save demo data
+	
+	public static File mCascadeFile;//face detection file->lbpcascade_frontalface.yml
 
 	public static int IMAGE_WIDTH = 92;// image size for recognizing
 	public static int IMAGE_HEIGHT = 112;
@@ -49,8 +58,10 @@ public class CommonUtil {
 
 	// static code block
 	// static {
-	public static void initApp() {
+	public static void initApp(Context context) {
+		Log.i(TAG, "common util init app enter!");
 		try {
+			// app config properties
 			props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(CONFIG_FILENAME));
 			if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 				SDFOLDER = new File(Environment.getExternalStorageDirectory().getCanonicalPath()
@@ -95,11 +106,29 @@ public class CommonUtil {
 				FACEDATA_FILEPATH = facedataFile.getAbsolutePath();// data
 				FACERECMODEL_FILEPATH = SDFOLDER.getAbsolutePath() + File.separator + FACERECMODEL_FILENAME;// model
 				LBPCASCADE_FILEPATH = SDFOLDER.getAbsolutePath() + File.separator + LBPCASCADE_FILENAME;// cascade
+				
+				// mCascadeFile used for face detection!
+				mCascadeFile = new File(CommonUtil.LBPCASCADE_FILEPATH);
+				if (!mCascadeFile.exists()) {// if file not exist, load from raw, otherwise, just use it!
+					// load cascade file from application resources
+					InputStream is = context.getResources().openRawResource(R.raw.lbpcascade_frontalface);
+					// mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
+					FileOutputStream os = new FileOutputStream(mCascadeFile);
 
+					byte[] buffer = new byte[4096];
+					int bytesRead;
+					while ((bytesRead = is.read(buffer)) != -1) {
+						os.write(buffer, 0, bytesRead);
+					}
+					is.close();
+					os.close();
+				}
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		Log.i(TAG, "common util init app exit!");
 	}
 
 	// save properties !

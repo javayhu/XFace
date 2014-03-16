@@ -103,14 +103,17 @@
 	<storageModule moduleId="refreshScope" versionNumber="1">
 		<resource resourceType="PROJECT" workspacePath="/XFace"/>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1077046262;com.android.toolchain.gcc.1077046262.1225300668;com.android.gcc.compiler.1821308949;com.android.gcc.inputType.2125126105">
+		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1077046262;com.android.toolchain.gcc.1077046262.323072550;com.android.gcc.compiler.1821308949.2001209686;com.android.gcc.inputType.1371189852">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.android.AndroidPerProjectProfile"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="0.129633445.1828637880">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1077046262;com.android.toolchain.gcc.1077046262.1225300668;com.android.gcc.compiler.1821308949;com.android.gcc.inputType.2125126105">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.android.AndroidPerProjectProfile"/>
+		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

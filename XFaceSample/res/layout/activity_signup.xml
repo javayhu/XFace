@@ -22,6 +22,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:onClick="tv_signup_name"
             android:text="已经注册过? 直接点击选择你的名字!"
             android:textColor="@color/text_orange"
             android:textSize="@dimen/text_default_size" />

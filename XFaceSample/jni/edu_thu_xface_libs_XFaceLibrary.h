@@ -31,6 +31,54 @@ JNIEXPORT jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeFacerec
 JNIEXPORT jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestoryFacerec
   (JNIEnv *, jclass, jlong);
 
+/*
+ * Class:     edu_thu_xface_libs_XFaceLibrary
+ * Method:    nativeCreateObject
+ * Signature: (Ljava/lang/String;I)J
+ */
+JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeCreateObject
+  (JNIEnv *, jclass, jstring, jint);
+
+/*
+ * Class:     edu_thu_xface_libs_XFaceLibrary
+ * Method:    nativeDestroyObject
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestroyObject
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     edu_thu_xface_libs_XFaceLibrary
+ * Method:    nativeStart
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeStart
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     edu_thu_xface_libs_XFaceLibrary
+ * Method:    nativeStop
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeStop
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     edu_thu_xface_libs_XFaceLibrary
+ * Method:    nativeSetFaceSize
+ * Signature: (JI)V
+ */
+JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeSetFaceSize
+  (JNIEnv *, jclass, jlong, jint);
+
+/*
+ * Class:     edu_thu_xface_libs_XFaceLibrary
+ * Method:    nativeDetect
+ * Signature: (JJJ)V
+ */
+JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDetect
+  (JNIEnv *, jclass, jlong, jlong, jlong);
+
 #ifdef __cplusplus
 }
 #endif

@@ -1,20 +1,10 @@
 package edu.thu.xface;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
 import org.opencv.android.JavaCameraView;
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfRect;
-import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
-import org.opencv.core.Size;
-import org.opencv.objdetect.CascadeClassifier;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -47,24 +37,14 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 	private long threadSleepTime = 1000;
 
 	// face detection!!
-//	public static final int JAVA_DETECTOR = 0;
-//	public static final int NATIVE_DETECTOR = 1;
 	private static final Scalar FACE_RECT_COLOR = new Scalar(0, 255, 0, 255);
 	private Handler handler;
 	private int count = 0;
 	private Mat mRgba;
 	private Mat mGray;
-
-	private File mCascadeFile;
-	private CascadeClassifier mJavaDetector;
-	// private DetectionBasedTracker mNativeDetector;
-
-//	private int mDetectorType = JAVA_DETECTOR;
-	// private String[] mDetectorName;
-
+	private XFaceLibrary xface;
 	private float mRelativeFaceSize = 0.2f;
 	private int mAbsoluteFaceSize = 0;
-
 	// face detection!!
 
 	@Override
@@ -76,40 +56,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 		// tv_facerec_result = (TextView) findViewById(R.id.tv_facerec_result);
 
 		// / face detection!
-		try {
-			// File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-			mCascadeFile = new File(CommonUtil.LBPCASCADE_FILEPATH);
-			if (!mCascadeFile.exists()) {// if file not exist, load from raw, otherwise, just use it!
-				// load cascade file from application resources
-				InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
-				// mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
-				FileOutputStream os = new FileOutputStream(mCascadeFile);
-
-				byte[] buffer = new byte[4096];
-				int bytesRead;
-				while ((bytesRead = is.read(buffer)) != -1) {
-					os.write(buffer, 0, bytesRead);
-				}
-				is.close();
-				os.close();
-			}
-
-			mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
-			if (mJavaDetector.empty()) {
-				Log.e(TAG, "Failed to load cascade classifier");
-				mJavaDetector = null;
-			} else {
-				Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
-			}
-			// mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);// hujiawei
-			// cascadeDir.delete();//
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
-		}
-
-//		mDetectorType = JAVA_DETECTOR;
+		xface = new XFaceLibrary(CommonUtil.LBPCASCADE_FILEPATH, 0);// hujiawei
 		// / face detection!
 
 		mOpenCvCameraView = (JavaCameraView) findViewById(R.id.cv_facerec_camera);
@@ -120,8 +67,8 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 		// used to handle the message sent from the thread reporting the result
 		handler = new Handler(new Handler.Callback() {
 			public boolean handleMessage(Message msg) {
-				int result = msg.arg1;//arg1 = result, arg2 = 
-				if (msg.arg2 == 1) {//when facerec!
+				int result = msg.arg1;// arg1 = result, arg2 =
+				if (msg.arg2 == 1) {// when facerec!
 					if (result == -1) {
 						Log.i(TAG, "unkown person!");
 						ToastUtil.showShortToast(getApplicationContext(), "I do't know you !");
@@ -133,7 +80,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 						count++;
 						// tv_facerec_result.setText(count + ": You are " + name + " ! ");
 					}
-				} else {//when init!
+				} else {// when init!
 					if (result == -2) {
 						Log.i(TAG, "less than 2 images");
 						ToastUtil.showShortToast(getApplicationContext(), "less than 2 images");
@@ -159,10 +106,10 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 				Log.i(TAG, "bInitFacerec= " + bInitFacerec + " $$ bExitRecognition= " + bExitRecognition
 						+ " $$ frameprocessing=" + bFrameProcessing);
 				if (!bInitFacerec) {// facerec init?
-					long result = XFaceLibrary.initFacerec();// it will take a lot of time!
+					long result = xface.initFacerec();// it will take a lot of time!
 					Message message = new Message();
 					message.arg1 = (int) result;// 1/-1/-2
-					message.arg2 = 0;//doing init!
+					message.arg2 = 0;// doing init!
 					handler.sendMessage(message);
 					bInitFacerec = true;// no longer init!
 				}
@@ -177,7 +124,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 							// Log.i(TAG, "data addr=" + mGray.dataAddr() + " $$ native addr=" +
 							// mGray.getNativeObjAddr()
 							// + " $$ native object=" + mGray.nativeObj);// $1 not equal $2,but $2=$3
-							int result = XFaceLibrary.facerec(mGray);
+							int result = xface.facerec(mGray);
 							Message message = new Message();
 							message.arg1 = result;
 							message.arg2 = 1;
@@ -186,7 +133,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 						}
 					}
 					try {
-						Thread.currentThread().sleep(threadSleepTime);//TODO!
+						Thread.currentThread().sleep(threadSleepTime);// TODO!
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -196,58 +143,54 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 
 	}
 
-	public FacerecCameraActivity() {
-		Log.i(TAG, "Instantiated new " + this.getClass());
-	}
-
 	public void btn_facerec_back(View view) {
 		Log.i(TAG, "btn_facerec_back");
 		FacerecCameraActivity.this.finish();//
-		//should the activity finishs?yes!
+		// should the activity finishs?yes!
 	}
 
 	// onpause, onresume has problems!!!TODO!
 	@Override
 	public void onPause() {
 		super.onPause();
-		if (mOpenCvCameraView != null)
+		Log.i(TAG, "on Pause");
+		if (mOpenCvCameraView != null) {
 			mOpenCvCameraView.disableView();
+		}
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (mOpenCvCameraView != null && !mOpenCvCameraView.isEnabled())
+		Log.i(TAG, "on resume");
+		if (mOpenCvCameraView != null && !mOpenCvCameraView.isEnabled()) {
 			mOpenCvCameraView.enableView();
+		}
 	}
 
 	public void onDestroy() {
 		super.onDestroy();
-		if (mOpenCvCameraView != null)
+		Log.i(TAG, "on destroy");
+		if (mOpenCvCameraView != null) {
 			mOpenCvCameraView.disableView();
+		}
+		xface.release();
 		bExitRecognition = true;//
 	}
 
-	// @Override
-	// public void onConfigurationChanged(Configuration newConfig) {
-	// super.onConfigurationChanged(newConfig);//
-	// if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-	// bIsLandscape = false;
-	// } else {
-	// bIsLandscape = true;
-	// }
-	// }
-
 	public void onCameraViewStarted(int width, int height) {
+		Log.i(TAG, "camera view start");
 		mGray = new Mat();
 		mRgba = new Mat();
+		xface.start();
 	}
 
 	public void onCameraViewStopped() {
-		// destory camera -> release
-		int result = XFaceLibrary.destoryFacerec();
+		Log.i(TAG, "camera view stop");
+		xface.destoryFacerec();
 		mGray.release();
 		mRgba.release();
+		xface.stop();
 	}
 
 	// preview frame!!!
@@ -259,32 +202,52 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 		mGray = inputFrame.gray();
 
 		// face detection!!
-//		Core.flip(mRgba.t(), mRgba, 0);// counter-clock wise 90
-//		Core.flip(mGray.t(), mGray, 0);
-//
-//		if (mAbsoluteFaceSize == 0) {
-//			int height = mGray.rows();
-//			if (Math.round(height * mRelativeFaceSize) > 0) {
-//				mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
-//			}
-//			// mNativeDetector.setMinFaceSize(mAbsoluteFaceSize);//
-//		}
-//
-//		MatOfRect faces = new MatOfRect();
-//		if (mJavaDetector != null) {// use only java detector
-//			mJavaDetector.detectMultiScale(mGray, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-//					new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
-//		}
-//
-//		Rect[] facesArray = faces.toArray();
-//		for (int i = 0; i < facesArray.length; i++) {
-//			Core.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
-//		}
-//
-//		Core.flip(mRgba.t(), mRgba, 1);// counter-clock wise 90
-//		Core.flip(mGray.t(), mGray, 1);
+		// Core.flip(mRgba.t(), mRgba, 0);// counter-clock wise 90
+		// Core.flip(mGray.t(), mGray, 0);
+
+		// java detector
+		// if (mAbsoluteFaceSize == 0) {
+		// int height = mGray.rows();
+		// if (Math.round(height * mRelativeFaceSize) > 0) {
+		// mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
+		// }
+		// // mNativeDetector.setMinFaceSize(mAbsoluteFaceSize);//
+		// }
+		//
+		// MatOfRect faces = new MatOfRect();
+		// if (mJavaDetector != null) {// use only java detector
+		// mJavaDetector.detectMultiScale(mGray, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+		// new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
+		// }
+		//
+		// Rect[] facesArray = faces.toArray();
+		// for (int i = 0; i < facesArray.length; i++) {
+		// Core.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
+		// }
+		//
+
+		// native detector
+		// if (mAbsoluteFaceSize == 0) {
+		// int height = mGray.rows();
+		// if (Math.round(height * mRelativeFaceSize) > 0) {
+		// mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
+		// }
+		// xface.setMinFaceSize(mAbsoluteFaceSize);//
+		// }
+		//
+		// MatOfRect faces = new MatOfRect();
+		//
+		// if (xface != null)
+		// xface.detect(mGray, faces);
+		//
+		// Rect[] facesArray = faces.toArray();
+		// for (int i = 0; i < facesArray.length; i++)
+		// Core.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
+		//
+		// Core.flip(mRgba.t(), mRgba, 1);// clock wise 90
+		// Core.flip(mGray.t(), mGray, 1);
 		// face detection!!
-		
+
 		return mRgba;
 	}
 

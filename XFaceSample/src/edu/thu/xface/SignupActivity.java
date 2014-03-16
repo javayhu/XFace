@@ -27,7 +27,6 @@ import edu.thu.xface.util.ToastUtil;
 public class SignupActivity extends Activity {
 
 	private EditText et_signup_name;
-	private TextView tv_signup_name;
 	private String name = "";
 	private String[] names;
 
@@ -36,17 +35,10 @@ public class SignupActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_signup);
 		et_signup_name = (EditText) findViewById(R.id.et_signup_name);
-		tv_signup_name = (TextView) findViewById(R.id.tv_signup_name);
-
-		tv_signup_name.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				tv_signup_name();
-			}
-		});
 	}
 
 	// choose a registered name!
-	public void tv_signup_name() {
+	public void tv_signup_name(View view) {
 		Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
 		ArrayList<String> nameList = new ArrayList<String>();
 		Set<String> keys = CommonUtil.userProps.stringPropertyNames();
@@ -85,7 +77,9 @@ public class SignupActivity extends Activity {
 		// sharedPreferences.getStringSet("allnames", null);//android-11!!!
 		if (null == name || "".equalsIgnoreCase(name)) {
 			ToastUtil.showShortToast(getApplicationContext(), "请输入您的名字！");
-		} else if (CommonUtil.userProps.contains(name)) {// contains value?
+			return;
+		}
+		if (CommonUtil.userProps.contains(name)) {// contains value?
 			// ToastUtil.showShortToast(getApplicationContext(), "名字重复了哟亲！");
 			Set<String> keys = CommonUtil.userProps.stringPropertyNames();
 			// System.out.println(keys);

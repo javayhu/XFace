@@ -58,6 +58,7 @@ obj/local/armeabi-v7a/objs/xface/xface.o: jni/xface.cpp \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/openfabmap.hpp \
  /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/list \
  /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/set \
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/detection_based_tracker.hpp \
  jni/edu_thu_xface_libs_XFaceLibrary.h \
  /Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/jni.h \
  /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/iostream \
@@ -181,6 +182,8 @@ obj/local/armeabi-v7a/objs/xface/xface.o: jni/xface.cpp \
 /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/list:
 
 /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/set:
+
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/detection_based_tracker.hpp:
 
 jni/edu_thu_xface_libs_XFaceLibrary.h:
 

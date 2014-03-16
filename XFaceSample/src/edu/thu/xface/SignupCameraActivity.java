@@ -2,22 +2,17 @@ package edu.thu.xface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.RandomAccessFile;
 
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfRect;
-import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.objdetect.CascadeClassifier;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,6 +22,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import edu.thu.xface.libs.XFaceLibrary;
 import edu.thu.xface.util.CommonUtil;
 import edu.thu.xface.util.ToastUtil;
 
@@ -49,23 +45,10 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 	private SignupCameraView mOpenCvCameraView;
 
 	// // / face detection!
-	// public static final int JAVA_DETECTOR = 0;
-	// public static final int NATIVE_DETECTOR = 1;
 	private static final Scalar FACE_RECT_COLOR = new Scalar(0, 255, 0, 255);// green
-
-	// private Handler handler;
-	// private int count = 0;
-
 	private Mat mRgba;
 	private Mat mGray;
-
-	private File mCascadeFile;
-	private CascadeClassifier mJavaDetector;
-	// private DetectionBasedTracker mNativeDetector;
-
-	// private int mDetectorType = JAVA_DETECTOR;
-	// private String[] mDetectorName;
-
+	private XFaceLibrary xface;
 	private float mRelativeFaceSize = 0.2f;
 	private int mAbsoluteFaceSize = 0;
 
@@ -83,50 +66,13 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 		btn_camera_takepic = (Button) findViewById(R.id.btn_camera_takepic);
 
 		// / face detection!
-		try {
-			// File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-			mCascadeFile = new File(CommonUtil.LBPCASCADE_FILEPATH);
-			if (!mCascadeFile.exists()) {// if file not exist, load from raw, otherwise, just use it!
-				// load cascade file from application resources
-				InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
-				// mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
-				FileOutputStream os = new FileOutputStream(mCascadeFile);
-
-				byte[] buffer = new byte[4096];
-				int bytesRead;
-				while ((bytesRead = is.read(buffer)) != -1) {
-					os.write(buffer, 0, bytesRead);
-				}
-				is.close();
-				os.close();
-			}
-
-			mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
-			if (mJavaDetector.empty()) {
-				Log.e(TAG, "Failed to load cascade classifier");
-				mJavaDetector = null;
-			} else {
-				Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
-			}
-			// mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);// hujiawei
-			// cascadeDir.delete();//
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
-		}
-
-		// mDetectorType = JAVA_DETECTOR;
+		xface = new XFaceLibrary(CommonUtil.LBPCASCADE_FILEPATH, 0);// hujiawei
 		// / face detection!
 
 		mOpenCvCameraView = (SignupCameraView) findViewById(R.id.cv_camera_signup);
 		mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
 		mOpenCvCameraView.setCvCameraViewListener(this);
 		mOpenCvCameraView.enableView();
-	}
-
-	public SignupCameraActivity() {
-		Log.i(TAG, "Instantiated new " + this.getClass());
 	}
 
 	public void btn_camera_back(View view) {
@@ -212,29 +158,41 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 	public void onPause() {
 		super.onPause();
 		Log.i(TAG, "on pause");
-		if (mOpenCvCameraView != null)
+		if (mOpenCvCameraView != null) {
 			mOpenCvCameraView.disableView();
+		}
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
 		Log.i(TAG, "on resume");
-		if (mOpenCvCameraView != null && !mOpenCvCameraView.isEnabled())
+		if (mOpenCvCameraView != null && !mOpenCvCameraView.isEnabled()) {
 			mOpenCvCameraView.enableView();
+		}
 	}
 
 	public void onDestroy() {
 		super.onDestroy();
 		Log.i(TAG, "on destory");
-		if (mOpenCvCameraView != null)
+		if (mOpenCvCameraView != null) {
 			mOpenCvCameraView.disableView();
+		}
+		xface.release();
 	}
 
 	public void onCameraViewStarted(int width, int height) {
+		Log.i(TAG, "camera view start");
+		mGray = new Mat();
+		mRgba = new Mat();
+		xface.start();
 	}
 
 	public void onCameraViewStopped() {
+		Log.i(TAG, "camera view stop");
+		mGray.release();
+		mRgba.release();
+		xface.stop();
 	}
 
 	public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
@@ -245,32 +203,54 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 		mRgba = inputFrame.rgba();
 		mGray = inputFrame.gray();
 
-		// / face detection!
-//		Core.flip(mRgba.t(), mRgba, 0);// counter-clock wise 90
-//		Core.flip(mGray.t(), mGray, 0);
-//
-//		if (mAbsoluteFaceSize == 0) {
-//			int height = mGray.rows();
-//			if (Math.round(height * mRelativeFaceSize) > 0) {
-//				mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
-//			}
-//			// mNativeDetector.setMinFaceSize(mAbsoluteFaceSize);//
-//		}
-//
-//		MatOfRect faces = new MatOfRect();
-//		if (mJavaDetector != null) {// use only java detector
-//			mJavaDetector.detectMultiScale(mGray, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-//					new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
-//		}
-//
-//		Rect[] facesArray = faces.toArray();
-//		for (int i = 0; i < facesArray.length; i++) {
-//			Core.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
-//		}
-//
-//		Core.flip(mRgba.t(), mRgba, 1);// counter-clock wise 90
-//		Core.flip(mGray.t(), mGray, 1);
-		// / face detection!
+		// face detection!!
+		// Core.flip(mRgba.t(), mRgba, 0);// counter-clock wise 90
+		// Core.flip(mGray.t(), mGray, 0);
+
+		// java detector
+		// if (mAbsoluteFaceSize == 0) {
+		// int height = mGray.rows();
+		// if (Math.round(height * mRelativeFaceSize) > 0) {
+		// mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
+		// }
+		// // mNativeDetector.setMinFaceSize(mAbsoluteFaceSize);//
+		// }
+		//
+		// MatOfRect faces = new MatOfRect();
+		// if (mJavaDetector != null) {// use only java detector
+		// mJavaDetector.detectMultiScale(mGray, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+		// new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
+		// }
+		//
+		// Rect[] facesArray = faces.toArray();
+		// for (int i = 0; i < facesArray.length; i++) {
+		// Core.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
+		// }
+		//
+		// Core.flip(mRgba.t(), mRgba, 1);// counter-clock wise 90
+		// Core.flip(mGray.t(), mGray, 1);
+
+		// native detector
+		// if (mAbsoluteFaceSize == 0) {
+		// int height = mGray.rows();
+		// if (Math.round(height * mRelativeFaceSize) > 0) {
+		// mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
+		// }
+		// xface.setMinFaceSize(mAbsoluteFaceSize);//
+		// }
+		//
+		// MatOfRect faces = new MatOfRect();
+		//
+		// if (xface != null)
+		// xface.detect(mGray, faces);
+		//
+		// Rect[] facesArray = faces.toArray();
+		// for (int i = 0; i < facesArray.length; i++)
+		// Core.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
+		//
+		// Core.flip(mRgba.t(), mRgba, 1);// clock wise 90
+		// Core.flip(mGray.t(), mGray, 1);
+		// face detection!!
 
 		return mRgba;
 	}

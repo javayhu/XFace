@@ -1,9 +1,5 @@
 package edu.thu.xface;
 
-import org.opencv.android.OpenCVLoader;
-
-import edu.thu.xface.util.CommonUtil;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import edu.thu.xface.util.CommonUtil;
 
 /**
  * 
@@ -23,27 +20,33 @@ public class LogoActivity extends Activity {
 
 	private static final String TAG = "LogoActivity";
 
-	static {
-		System.loadLibrary("opencv_java");// libs contain many opencv related libs!
-		Log.i(TAG, "opencv library load!");
-		if (!OpenCVLoader.initDebug()) {
-			// Handle initialization error
-			Log.i(TAG, "OpenCV load not successfully");
-		} else {
-			System.loadLibrary("xface");
-			CommonUtil.initApp();
-		}
-	}
+//	static {
+//		System.loadLibrary("opencv_java");// libs contain many opencv related libs!
+//		Log.i(TAG, "opencv library load!");
+//		if (!OpenCVLoader.initDebug()) {
+//			// Handle initialization error
+//			Log.i(TAG, "OpenCV load not successfully");
+//		} else {
+//			System.loadLibrary("xface");
+////			System.loadLibrary("facetracker");
+//			CommonUtil.initApp();
+//		}
+//	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_logo);
+		
+		// load library and init app
+		System.loadLibrary("opencv_java");// libs contain many opencv related libs!
+		System.loadLibrary("xface");
+		Log.i(TAG, "opencv and xface library load!");
+		CommonUtil.initApp(getApplicationContext());
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		Log.i(TAG, "called onCreateOptionsMenu");
 		menu.add("Setting");
 		return true;
 	}
