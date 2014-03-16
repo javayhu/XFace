@@ -68,7 +68,6 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/btn_camera_takepic"
         android:layout_below="@+id/rl_camera_top"
-        android:visibility="visible"
         opencv:camera_id="front"
         opencv:show_fps="true" />
 

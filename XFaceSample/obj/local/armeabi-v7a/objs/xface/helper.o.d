@@ -1,5 +1,6 @@
-obj/local/armeabi-v7a/objs/xface/xface.o: jni/xface.cpp \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/core.hpp \
+obj/local/armeabi-v7a/objs/xface/helper.o: jni/helper.cpp \
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/opencv.hpp \
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/core_c.h \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/types_c.h \
  /Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/assert.h \
  /Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/sys/cdefs.h \
@@ -31,6 +32,7 @@ obj/local/armeabi-v7a/objs/xface/xface.o: jni/xface.cpp \
  /Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/machine/limits.h \
  /Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/sys/syslimits.h \
  /Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/asm/page.h \
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/core.hpp \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/version.hpp \
  /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/algorithm \
  /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/cmath \
@@ -41,41 +43,36 @@ obj/local/armeabi-v7a/objs/xface/xface.o: jni/xface.cpp \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/operations.hpp \
  /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/limits \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/mat.hpp \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/highgui/highgui.hpp \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/highgui/highgui_c.h \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/core_c.h \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/contrib.hpp \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/imgproc/imgproc.hpp \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/imgproc/types_c.h \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/features2d/features2d.hpp \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/flann/miniflann.hpp \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/flann/defines.h \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/flann/config.h \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/objdetect/objdetect.hpp \
- /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/deque \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/retina.hpp \
- /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/valarray \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/openfabmap.hpp \
- /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/list \
- /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/set \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/detection_based_tracker.hpp \
- jni/helper.hpp \
- /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/opencv.hpp \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/imgproc/imgproc_c.h \
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/imgproc/types_c.h \
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/imgproc/imgproc.hpp \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/photo/photo.hpp \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/photo/photo_c.h \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/video/video.hpp \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/video/tracking.hpp \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/video/background_segm.hpp \
+ /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/list \
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/features2d/features2d.hpp \
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/objdetect/objdetect.hpp \
+ /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/deque \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/calib3d/calib3d.hpp \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/ml/ml.hpp \
  /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/iostream \
- jni/eigenfaces.hpp jni/edu_thu_xface_libs_XFaceLibrary.h \
- /Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/jni.h \
- /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/fstream \
- /Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/android/log.h
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/highgui/highgui_c.h \
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/highgui/highgui.hpp \
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/contrib.hpp \
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/retina.hpp \
+ /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/valarray \
+ /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/openfabmap.hpp \
+ /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/set \
+ jni/helper.hpp
 
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/core.hpp:
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/opencv.hpp:
+
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/core_c.h:
 
 /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/types_c.h:
 
@@ -139,6 +136,8 @@ obj/local/armeabi-v7a/objs/xface/xface.o: jni/xface.cpp \
 
 /Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/asm/page.h:
 
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/core.hpp:
+
 /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/version.hpp:
 
 /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/algorithm:
@@ -159,47 +158,17 @@ obj/local/armeabi-v7a/objs/xface/xface.o: jni/xface.cpp \
 
 /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/mat.hpp:
 
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/highgui/highgui.hpp:
-
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/highgui/highgui_c.h:
-
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/core/core_c.h:
-
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/contrib.hpp:
-
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/imgproc/imgproc.hpp:
-
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/imgproc/types_c.h:
-
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/features2d/features2d.hpp:
-
 /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/flann/miniflann.hpp:
 
 /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/flann/defines.h:
 
 /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/flann/config.h:
 
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/objdetect/objdetect.hpp:
-
-/Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/deque:
-
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/retina.hpp:
-
-/Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/valarray:
-
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/openfabmap.hpp:
-
-/Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/list:
-
-/Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/set:
-
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/detection_based_tracker.hpp:
-
-jni/helper.hpp:
-
-/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/opencv.hpp:
-
 /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/imgproc/imgproc_c.h:
+
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/imgproc/types_c.h:
+
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/imgproc/imgproc.hpp:
 
 /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/photo/photo.hpp:
 
@@ -211,18 +180,32 @@ jni/helper.hpp:
 
 /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/video/background_segm.hpp:
 
+/Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/list:
+
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/features2d/features2d.hpp:
+
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/objdetect/objdetect.hpp:
+
+/Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/deque:
+
 /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/calib3d/calib3d.hpp:
 
 /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/ml/ml.hpp:
 
 /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/iostream:
 
-jni/eigenfaces.hpp:
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/highgui/highgui_c.h:
 
-jni/edu_thu_xface_libs_XFaceLibrary.h:
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/highgui/highgui.hpp:
 
-/Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/jni.h:
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/contrib.hpp:
 
-/Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/fstream:
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/retina.hpp:
 
-/Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/android/log.h:
+/Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/valarray:
+
+/Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/openfabmap.hpp:
+
+/Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/set:
+
+jni/helper.hpp:

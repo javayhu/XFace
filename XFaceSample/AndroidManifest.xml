@@ -35,7 +35,7 @@
         <activity android:name="edu.thu.xface.FacerecCameraActivity" />
         <activity android:name="edu.thu.xface.AboutActivity" />
         <activity android:name="edu.thu.xface.SettingActivity" />
-        <activity android:name="edu.thu.xface.FdActivity" />
+        <activity android:name="edu.thu.xface.UsersActivity" />
     </application>
 
 </manifest>

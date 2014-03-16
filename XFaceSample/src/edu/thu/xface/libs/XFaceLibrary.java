@@ -3,6 +3,8 @@ package edu.thu.xface.libs;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 
+import android.util.Log;
+
 import edu.thu.xface.util.CommonUtil;
 
 /**
@@ -13,8 +15,10 @@ import edu.thu.xface.util.CommonUtil;
  */
 public class XFaceLibrary {
 
+	private static final String TAG = "XFaceLibrary";
+
 	// face recognition!!
-	private long xfacerec = 0;
+	private long xface = 0;
 
 	public long initFacerec() {
 		int face = 1;
@@ -23,30 +27,31 @@ public class XFaceLibrary {
 		} else if (CommonUtil.FACERECOGNIZER.equalsIgnoreCase(CommonUtil.FACE_LBPH)) {
 			face = 3;
 		}
-		xfacerec = nativeInitFacerec(CommonUtil.FACEDATA_FILEPATH, CommonUtil.FACERECMODEL_FILEPATH,
+		xface = nativeInitFacerec(CommonUtil.FACEDATA_FILEPATH, CommonUtil.FACERECMODEL_FILEPATH,
 				CommonUtil.EIGEN_COMPONENT, CommonUtil.EIGEN_THRESHOLD, face);
-		return xfacerec;
+		return xface;
 	}
 
 	public int facerec(Mat mat) {
-		return nativeFacerec(xfacerec, CommonUtil.FACERECMODEL_FILEPATH, mat.getNativeObjAddr(),
-				CommonUtil.IMAGE_WIDTH, CommonUtil.IMAGE_HEIGHT);
+		Log.i(TAG, "lib facerec xface = " + xface + " mataddr = " + mat.getNativeObjAddr());
+		return nativeFacerec(CommonUtil.FACERECMODEL_FILEPATH, xface, mat.getNativeObjAddr(), CommonUtil.IMAGE_WIDTH,
+				CommonUtil.IMAGE_HEIGHT);
 	}
 
 	public int destoryFacerec() {
-		return nativeDestoryFacerec(xfacerec);
+		return nativeDestoryFacerec(xface);
 	}
 
 	public static native long nativeInitFacerec(String datapath, String modelpath, int component, double threshold,
 			int facerec);
 
-	public static native int nativeFacerec(long xfacerec, String modelpath, long addr, int width, int height);
+	public static native int nativeFacerec(String modelpath, long xfacerec, long addr, int width, int height);
 
 	public static native int nativeDestoryFacerec(long xfacerec);
 
 	// face detecion!!!
 	private long mNativeObj = 0;
-	
+
 	public void initFacedetect(String cascadeName, int minFaceSize) {
 		mNativeObj = nativeInitFacedetect(cascadeName, minFaceSize);
 	}

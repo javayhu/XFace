@@ -5,9 +5,17 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 import edu.thu.xface.R;
+import edu.thu.xface.adapter.UserInfo;
 
 import android.content.Context;
 import android.os.Environment;
@@ -20,7 +28,7 @@ import android.util.Log;
  * 
  */
 public class CommonUtil {
-	
+
 	private static final String TAG = "CommonUtil";
 
 	public static final String CONFIG_FILENAME = "config.properties";// app config
@@ -45,8 +53,8 @@ public class CommonUtil {
 	public static File USERFOLDER;// save user data
 	public static File CAMERAFOLDER;// save camera take pics
 	public static File DEMOFOLDER;// save demo data
-	
-	public static File mCascadeFile;//face detection file->lbpcascade_frontalface.yml
+
+	public static File mCascadeFile;// face detection file->lbpcascade_frontalface.yml
 
 	public static int IMAGE_WIDTH = 92;// image size for recognizing
 	public static int IMAGE_HEIGHT = 112;
@@ -106,7 +114,7 @@ public class CommonUtil {
 				FACEDATA_FILEPATH = facedataFile.getAbsolutePath();// data
 				FACERECMODEL_FILEPATH = SDFOLDER.getAbsolutePath() + File.separator + FACERECMODEL_FILENAME;// model
 				LBPCASCADE_FILEPATH = SDFOLDER.getAbsolutePath() + File.separator + LBPCASCADE_FILENAME;// cascade
-				
+
 				// mCascadeFile used for face detection!
 				mCascadeFile = new File(CommonUtil.LBPCASCADE_FILEPATH);
 				if (!mCascadeFile.exists()) {// if file not exist, load from raw, otherwise, just use it!
@@ -123,12 +131,25 @@ public class CommonUtil {
 					is.close();
 					os.close();
 				}
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		Log.i(TAG, "common util init app exit!");
+	}
+
+	public static ArrayList<UserInfo> getAllUsers() {
+		Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+		ArrayList<UserInfo> userInfos = new ArrayList<UserInfo>();
+		Set<String> keys = CommonUtil.userProps.stringPropertyNames();
+		for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
+			String key = (String) iterator.next();
+			if (pattern.matcher(key).matches()) {// key is number, then it's a name
+				userInfos.add(new UserInfo(0, Integer.parseInt(key), userProps.getProperty(key)));
+			}
+		}
+		return userInfos;
 	}
 
 	// save properties !

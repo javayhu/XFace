@@ -18,6 +18,7 @@ import edu.thu.xface.util.CommonUtil;
 public class SettingActivity extends Activity {
 
 	private RelativeLayout rl_settings_about;
+	private RelativeLayout rl_settings_users;
 	private RelativeLayout rl_settings_suggestion;
 	private RadioButton rb_face_eigen;
 	private RadioButton rb_face_fisher;
@@ -32,8 +33,8 @@ public class SettingActivity extends Activity {
 		rl_settings_suggestion = (RelativeLayout) findViewById(R.id.rl_settings_suggestion);
 		rl_settings_suggestion.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-//				Intent intent = new Intent(SettingActivity.this, FdActivity.class);
-//				startActivity(intent);
+				// Intent intent = new Intent(SettingActivity.this, FdActivity.class);
+				// startActivity(intent);
 			}
 		});
 
@@ -41,6 +42,14 @@ public class SettingActivity extends Activity {
 		rl_settings_about.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(SettingActivity.this, AboutActivity.class);
+				startActivity(intent);
+			}
+		});
+
+		rl_settings_users = (RelativeLayout) findViewById(R.id.rl_settings_users);
+		rl_settings_users.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(SettingActivity.this, UsersActivity.class);
 				startActivity(intent);
 			}
 		});

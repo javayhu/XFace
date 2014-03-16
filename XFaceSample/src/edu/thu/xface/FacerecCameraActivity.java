@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import edu.thu.xface.libs.XFaceLibrary;
@@ -62,7 +61,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 		// / face detection!
 
 		mOpenCvCameraView = (JavaCameraView) findViewById(R.id.cv_facerec_camera);
-		mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
+//		mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
 		mOpenCvCameraView.setCvCameraViewListener(this);
 		mOpenCvCameraView.enableView();
 
@@ -109,6 +108,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 						+ " $$ frameprocessing=" + bFrameProcessing);
 				if (!bInitFacerec) {// facerec init?
 					long result = xface.initFacerec();// it will take a lot of time!
+					Log.i(TAG, "init facerec result is " + result);
 					Message message = new Message();
 					message.arg1 = (int) result;// 1/-1/-2
 					message.arg2 = 0;// doing init!
@@ -122,7 +122,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 							// return;// return when no data//can not return!!!!
 						} else {
 							bFrameProcessing = true;
-							Log.i(TAG, "runFacerec! addr = " + mGray.getNativeObjAddr());// 2103032
+							Log.i(TAG, "runFacerec! mataddr = " + mGray.getNativeObjAddr());// 2103032
 							// Log.i(TAG, "data addr=" + mGray.dataAddr() + " $$ native addr=" +
 							// mGray.getNativeObjAddr()
 							// + " $$ native object=" + mGray.nativeObj);// $1 not equal $2,but $2=$3
@@ -155,7 +155,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.i(TAG, "on Pause");
+		Log.i(TAG, "on pause");
 		if (mOpenCvCameraView != null) {
 			mOpenCvCameraView.disableView();
 		}

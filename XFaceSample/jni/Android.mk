@@ -9,7 +9,9 @@ OPENCV_LIB_TYPE:=SHARED
 include ${OPENCVROOT}/sdk/native/jni/OpenCV.mk
 
 #C++
-LOCAL_SRC_FILES := xface.cpp
+LOCAL_SRC_FILES := helper.cpp \
+eigenfaces.cpp \
+xface.cpp
 
 #LOCAL_C_INCLUDES += $(LOCAL_PATH)
 LOCAL_LDLIBS     += -llog

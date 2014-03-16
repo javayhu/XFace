@@ -118,7 +118,7 @@
     </RelativeLayout>
     
     <RelativeLayout
-        android:id="@+id/rl_settings_suggestion"
+        android:id="@+id/rl_settings_users"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/preference_last_item"

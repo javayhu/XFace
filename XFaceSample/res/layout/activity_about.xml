@@ -68,10 +68,10 @@
 
     <LinearLayout
         android:id="@+id/ll_about_info"
-        android:layout_above="@+id/rl_about_copyright"
-        android:layout_marginBottom="40dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_about_copyright"
+        android:layout_marginBottom="40dp"
         android:orientation="vertical" >
 
         <RelativeLayout
