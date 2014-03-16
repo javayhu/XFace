@@ -146,7 +146,7 @@ static void read_csv(const string& filename, vector<Mat>& images,
   * Method:    nativeCreateObject
   * Signature: (Ljava/lang/String;I)J
   */
- JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeCreateObject(
+ JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeInitFacedetect(
  		JNIEnv * jenv, jclass, jstring jFileName, jint faceSize) {
  	LOGD(
  			"Java_edu_thu_xface_libs_XFaceLibrary_nativeCreateObject enter");
@@ -183,7 +183,7 @@ static void read_csv(const string& filename, vector<Mat>& images,
   * Method:    nativeDestroyObject
   * Signature: (J)V
   */
- JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestroyObject(
+ JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestroyFacedetect(
  		JNIEnv * jenv, jclass, jlong thiz) {
  	LOGD(
  			"Java_edu_thu_xface_libs_XFaceLibrary_nativeDestroyObject enter");
@@ -213,7 +213,7 @@ static void read_csv(const string& filename, vector<Mat>& images,
   * Method:    nativeStart
   * Signature: (J)V
   */
- JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeStart(
+ JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeStartFacedetect(
  		JNIEnv * jenv, jclass, jlong thiz) {
  	LOGD("Java_edu_thu_xface_libs_XFaceLibrary_nativeStart enter");
  	try {
@@ -238,7 +238,7 @@ static void read_csv(const string& filename, vector<Mat>& images,
   * Method:    nativeStop
   * Signature: (J)V
   */
- JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeStop(
+ JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeStopFacedetect(
  		JNIEnv * jenv, jclass, jlong thiz) {
  	LOGD("Java_edu_thu_xface_libs_XFaceLibrary_nativeStop enter");
  	try {
@@ -295,7 +295,7 @@ static void read_csv(const string& filename, vector<Mat>& images,
   * Method:    nativeDetect
   * Signature: (JJJ)V
   */
- JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDetect(
+ JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeFacedetect(
  		JNIEnv * jenv, jclass, jlong thiz, jlong imageGray, jlong faces) {
  	LOGD("Java_edu_thu_xface_libs_XFaceLibrary_nativeDetect enter");
  	try {

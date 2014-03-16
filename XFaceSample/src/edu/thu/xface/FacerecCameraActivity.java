@@ -45,6 +45,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 	private XFaceLibrary xface;
 	private float mRelativeFaceSize = 0.2f;
 	private int mAbsoluteFaceSize = 0;
+
 	// face detection!!
 
 	@Override
@@ -56,7 +57,8 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 		// tv_facerec_result = (TextView) findViewById(R.id.tv_facerec_result);
 
 		// / face detection!
-		xface = new XFaceLibrary(CommonUtil.LBPCASCADE_FILEPATH, 0);// hujiawei
+		xface = new XFaceLibrary();// hujiawei
+		xface.initFacedetect(CommonUtil.LBPCASCADE_FILEPATH, 0);
 		// / face detection!
 
 		mOpenCvCameraView = (JavaCameraView) findViewById(R.id.cv_facerec_camera);
@@ -174,7 +176,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 		if (mOpenCvCameraView != null) {
 			mOpenCvCameraView.disableView();
 		}
-		xface.release();
+		xface.destroryFacedetect();
 		bExitRecognition = true;//
 	}
 
@@ -182,7 +184,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 		Log.i(TAG, "camera view start");
 		mGray = new Mat();
 		mRgba = new Mat();
-		xface.start();
+		xface.startFacedetect();
 	}
 
 	public void onCameraViewStopped() {
@@ -190,7 +192,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 		xface.destoryFacerec();
 		mGray.release();
 		mRgba.release();
-		xface.stop();
+		xface.stopFacedetect();
 	}
 
 	// preview frame!!!

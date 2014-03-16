@@ -66,7 +66,8 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 		btn_camera_takepic = (Button) findViewById(R.id.btn_camera_takepic);
 
 		// / face detection!
-		xface = new XFaceLibrary(CommonUtil.LBPCASCADE_FILEPATH, 0);// hujiawei
+		xface = new XFaceLibrary();// hujiawei
+		xface.initFacedetect(CommonUtil.LBPCASCADE_FILEPATH, 0);
 		// / face detection!
 
 		mOpenCvCameraView = (SignupCameraView) findViewById(R.id.cv_camera_signup);
@@ -138,10 +139,11 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 		ToastUtil.showShortToast(getApplicationContext(), "照片保存成功哟!");
 
 		// go to logo activity
-		Intent intent = new Intent(SignupCameraActivity.this, LogoActivity.class);
-		startActivity(intent);
-		SignupCameraActivity.this.finish();// ps: sometimes it encounters a null pointer exception!
+//		Intent intent = new Intent(SignupCameraActivity.this, LogoActivity.class);
+//		startActivity(intent);
+//		SignupCameraActivity.this.finish();// ps: sometimes it encounters a null pointer exception!
 		// this problem is caused by mOpenCvCameraView
+		//in order to solve this problem, do not finish it! user can save many pictures once!
 	}
 
 	public void btn_camera_takepic(View view) {
@@ -178,21 +180,21 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 		if (mOpenCvCameraView != null) {
 			mOpenCvCameraView.disableView();
 		}
-		xface.release();
+		xface.destroryFacedetect();
 	}
 
 	public void onCameraViewStarted(int width, int height) {
 		Log.i(TAG, "camera view start");
 		mGray = new Mat();
 		mRgba = new Mat();
-		xface.start();
+		xface.startFacedetect();
 	}
 
 	public void onCameraViewStopped() {
 		Log.i(TAG, "camera view stop");
 		mGray.release();
 		mRgba.release();
-		xface.stop();
+		xface.stopFacedetect();
 	}
 
 	public Mat onCameraFrame(CvCameraViewFrame inputFrame) {

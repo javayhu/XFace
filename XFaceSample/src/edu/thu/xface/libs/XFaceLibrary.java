@@ -46,42 +46,42 @@ public class XFaceLibrary {
 
 	// face detecion!!!
 	private long mNativeObj = 0;
-
-	public XFaceLibrary(String cascadeName, int minFaceSize) {
-		mNativeObj = nativeCreateObject(cascadeName, minFaceSize);
+	
+	public void initFacedetect(String cascadeName, int minFaceSize) {
+		mNativeObj = nativeInitFacedetect(cascadeName, minFaceSize);
 	}
 
-	public void start() {
-		nativeStart(mNativeObj);
+	public void startFacedetect() {
+		nativeStartFacedetect(mNativeObj);
 	}
 
-	public void stop() {
-		nativeStop(mNativeObj);
+	public void stopFacedetect() {
+		nativeStopFacedetect(mNativeObj);
 	}
 
 	public void setMinFaceSize(int size) {
 		nativeSetFaceSize(mNativeObj, size);
 	}
 
-	public void detect(Mat imageGray, MatOfRect faces) {
-		nativeDetect(mNativeObj, imageGray.getNativeObjAddr(), faces.getNativeObjAddr());
+	public void facedetect(Mat imageGray, MatOfRect faces) {
+		nativeFacedetect(mNativeObj, imageGray.getNativeObjAddr(), faces.getNativeObjAddr());
 	}
 
-	public void release() {
-		nativeDestroyObject(mNativeObj);
+	public void destroryFacedetect() {
+		nativeDestroyFacedetect(mNativeObj);
 		mNativeObj = 0;
 	}
 
-	private static native long nativeCreateObject(String cascadeName, int minFaceSize);
+	private static native long nativeInitFacedetect(String cascadeName, int minFaceSize);
 
-	private static native void nativeDestroyObject(long thiz);
+	private static native void nativeDestroyFacedetect(long thiz);
 
-	private static native void nativeStart(long thiz);
+	private static native void nativeStartFacedetect(long thiz);
 
-	private static native void nativeStop(long thiz);
+	private static native void nativeStopFacedetect(long thiz);
 
 	private static native void nativeSetFaceSize(long thiz, int size);
 
-	private static native void nativeDetect(long thiz, long inputImage, long faces);
+	private static native void nativeFacedetect(long thiz, long inputImage, long faces);
 
 }
