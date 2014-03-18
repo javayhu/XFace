@@ -1,13 +1,19 @@
 package edu.thu.xface;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import edu.thu.xface.libs.XFaceLibrary;
 import edu.thu.xface.util.CommonUtil;
+import edu.thu.xface.util.ToastUtil;
 
 /**
  * 
@@ -20,29 +26,47 @@ public class LogoActivity extends Activity {
 
 	private static final String TAG = "LogoActivity";
 
-//	static {
-//		System.loadLibrary("opencv_java");// libs contain many opencv related libs!
-//		Log.i(TAG, "opencv library load!");
-//		if (!OpenCVLoader.initDebug()) {
-//			// Handle initialization error
-//			Log.i(TAG, "OpenCV load not successfully");
-//		} else {
-//			System.loadLibrary("xface");
-////			System.loadLibrary("facetracker");
-//			CommonUtil.initApp();
-//		}
-//	}
+	private Button btn_logo_signin;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_logo);
-		
-		// load library and init app
-		System.loadLibrary("opencv_java");// libs contain many opencv related libs!
-		System.loadLibrary("xface");
-		Log.i(TAG, "opencv and xface library load!");
-		CommonUtil.initApp(getApplicationContext());
+		btn_logo_signin = (Button) findViewById(R.id.btn_logo_signin);
+
+		if (!CommonUtil.isAppInit) {
+			// async do init app
+			new AsyncTask<Void, Void, Boolean>() {
+
+				@Override
+				protected Boolean doInBackground(Void... params) {
+					CommonUtil.initApp(getApplicationContext());
+					// whether or not to re-calculate the model?
+					File file = new File(CommonUtil.FACERECMODEL_FILEPATH);
+					if (!file.exists()) {
+						new XFaceLibrary().trainModel();// takes time! 44 seconds
+					}
+					return true;
+				}
+
+				@Override
+				protected void onPostExecute(Boolean result) {
+					if (result) {
+						ToastUtil.showShortToast(getApplicationContext(), "应用程序初始化成功咯!");
+						btn_logo_signin.setEnabled(true);
+					} else {
+						ToastUtil.showShortToast(getApplicationContext(), "应用程序初始化失败啦!");
+					}
+				}
+
+				@Override
+				protected void onPreExecute() {
+					ToastUtil.showShortToast(getApplicationContext(), "应用程序初始化中...请稍候...");
+					btn_logo_signin.setEnabled(false);
+				}
+
+			}.execute();
+		}
 	}
 
 	@Override

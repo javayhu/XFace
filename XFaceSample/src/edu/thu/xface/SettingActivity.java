@@ -2,12 +2,15 @@ package edu.thu.xface;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import edu.thu.xface.libs.XFaceLibrary;
 import edu.thu.xface.util.CommonUtil;
+import edu.thu.xface.util.ToastUtil;
 
 /**
  * setting
@@ -17,9 +20,11 @@ import edu.thu.xface.util.CommonUtil;
  */
 public class SettingActivity extends Activity {
 
+	private RelativeLayout rl_settings_model;
 	private RelativeLayout rl_settings_about;
 	private RelativeLayout rl_settings_users;
 	private RelativeLayout rl_settings_suggestion;
+
 	private RadioButton rb_face_eigen;
 	private RadioButton rb_face_fisher;
 	private RadioButton rb_face_lbph;
@@ -51,6 +56,39 @@ public class SettingActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(SettingActivity.this, UsersActivity.class);
 				startActivity(intent);
+			}
+		});
+
+		rl_settings_model = (RelativeLayout) findViewById(R.id.rl_settings_model);
+		rl_settings_model.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				// re-calculate the model
+				new AsyncTask<Void, Void, Boolean>() {
+
+					@Override
+					protected Boolean doInBackground(Void... params) {
+						if (new XFaceLibrary().trainModel() > 0) {
+							return true;
+						}
+						return false;
+					}
+
+					@Override
+					protected void onPostExecute(Boolean result) {
+						if (result) {
+							ToastUtil.showShortToast(getApplicationContext(), "模型建立成功咯!");
+						}else {
+							ToastUtil.showShortToast(getApplicationContext(), "建立模型失败啦!");
+						}
+					}
+
+					@Override
+					protected void onPreExecute() {
+						ToastUtil.showShortToast(getApplicationContext(), "Calculating...Wait about 1 minute...");
+					}
+
+				}.execute();
+
 			}
 		});
 

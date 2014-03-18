@@ -9,9 +9,9 @@ package edu.thu.xface.adapter;
  */
 public class UserInfo {
 
-	private int count;
-	private int userid;
-	private String name;
+	private int count;// pictures count
+	private int userid;// user id
+	private String name;// user name
 
 	public UserInfo() {
 	}
@@ -20,6 +20,17 @@ public class UserInfo {
 		this.count = count;
 		this.userid = userid;
 		this.name = name;
+	}
+
+	@Override
+	public boolean equals(Object o) {//for "contains"!
+		if (o instanceof UserInfo) {
+			UserInfo userInfo = (UserInfo) o;
+			if (userInfo.getName().equalsIgnoreCase(this.name)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public int getCount() {

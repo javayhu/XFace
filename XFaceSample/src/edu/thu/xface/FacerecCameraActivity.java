@@ -61,15 +61,15 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 		// / face detection!
 
 		mOpenCvCameraView = (JavaCameraView) findViewById(R.id.cv_facerec_camera);
-//		mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
+		// mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
 		mOpenCvCameraView.setCvCameraViewListener(this);
 		mOpenCvCameraView.enableView();
 
 		// used to handle the message sent from the thread reporting the result
 		handler = new Handler(new Handler.Callback() {
 			public boolean handleMessage(Message msg) {
-				int result = msg.arg1;// arg1 = result, arg2 =
-				if (msg.arg2 == 1) {// when facerec!
+				int result = msg.arg1;// arg1 = result, arg2 = [state]
+				if (msg.arg2 == 1) {// when facerec! arg2=1
 					if (result == -1) {
 						Log.i(TAG, "unkown person!");
 						ToastUtil.showShortToast(getApplicationContext(), "I do't know you !");
@@ -81,7 +81,7 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 						count++;
 						// tv_facerec_result.setText(count + ": You are " + name + " ! ");
 					}
-				} else {// when init!
+				} else {// when init! arg2=0
 					if (result == -2) {
 						Log.i(TAG, "less than 2 images");
 						ToastUtil.showShortToast(getApplicationContext(), "less than 2 images");
@@ -113,8 +113,13 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 					message.arg1 = (int) result;// 1/-1/-2
 					message.arg2 = 0;// doing init!
 					handler.sendMessage(message);
-					bInitFacerec = true;// no longer init!
-				}
+					// what if initialize failed?!
+					if (result > 0) {
+						bInitFacerec = true;// no longer init!
+					} else {
+						return;//if fail, stop the thread!
+					}
+				}// problem exist! if facerec not initialized, face rec action will still do! solution is above!
 				while (!bExitRecognition) {// is recognition exits?
 					if (!bFrameProcessing) {// is frame being processing?
 						if (null == mGray || mGray.empty()) {// it's hard to say when it is called!

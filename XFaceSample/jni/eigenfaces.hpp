@@ -54,7 +54,7 @@ public:
     _num_components(num_components),
     _threshold(threshold)
 	{
-        compute(src, labels);
+        compute(src, labels);//this method will be called when building a model [hujiawei]
 	}
     
 	//! computes a PCA for given data

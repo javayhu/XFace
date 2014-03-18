@@ -2,6 +2,7 @@ package edu.thu.xface;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import edu.thu.xface.adapter.UserInfo;
 import edu.thu.xface.util.CommonUtil;
 import edu.thu.xface.util.ToastUtil;
 
@@ -27,8 +29,10 @@ import edu.thu.xface.util.ToastUtil;
 public class SignupActivity extends Activity {
 
 	private EditText et_signup_name;
+
 	private String name = "";
 	private String[] names;
+	private ArrayList<UserInfo> userInfos;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +43,11 @@ public class SignupActivity extends Activity {
 
 	// choose a registered name!
 	public void tv_signup_name(View view) {
-		Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
-		ArrayList<String> nameList = new ArrayList<String>();
-		Set<String> keys = CommonUtil.userProps.stringPropertyNames();
-		// System.out.println(keys);
-		for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
-			String key = (String) iterator.next();
-			if (pattern.matcher(key).matches()) {// key is number, then it's a name
-				nameList.add(CommonUtil.userProps.getProperty(key));
-			}
+		userInfos = CommonUtil.getAllUsers(false);
+		names = new String[userInfos.size()];
+		for (int i = 0; i < userInfos.size(); i++) {
+			names[i] = userInfos.get(i).getName();
 		}
-		names = new String[nameList.size()];
-		nameList.toArray(names);
-		System.out.println(Arrays.toString(names));
 		if (names.length <= 0) {
 			ToastUtil.showShortToast(getApplicationContext(), "No one registered!");
 			return;
@@ -63,7 +59,6 @@ public class SignupActivity extends Activity {
 						if (which >= 0) {
 							et_signup_name.setText(names[which]);
 						}
-						// ToastUtil.showShortToast(getApplicationContext(), "you choose " + names[which]);
 						dialog.dismiss();
 					}
 				}).show();
@@ -71,7 +66,6 @@ public class SignupActivity extends Activity {
 
 	// go to camera
 	public void btn_signup_gotocamera(View view) {
-		Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
 		name = et_signup_name.getText().toString();
 		int userid = -1;
 		// sharedPreferences.getStringSet("allnames", null);//android-11!!!
@@ -81,13 +75,9 @@ public class SignupActivity extends Activity {
 		}
 		if (CommonUtil.userProps.contains(name)) {// contains value?
 			// ToastUtil.showShortToast(getApplicationContext(), "Ãû×ÖÖØ¸´ÁËÓ´Ç×£¡");
-			Set<String> keys = CommonUtil.userProps.stringPropertyNames();
-			// System.out.println(keys);
-			for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
-				String key = (String) iterator.next();
-				if (pattern.matcher(key).matches() && CommonUtil.userProps.get(key).equals(name)) {// key is number,
-					userid = Integer.parseInt(key);
-					break;
+			for (int i = 0; i < userInfos.size(); i++) {
+				if (userInfos.get(i).getName().equalsIgnoreCase(name)) {
+					userid = userInfos.get(i).getUserid();
 				}
 			}
 		}

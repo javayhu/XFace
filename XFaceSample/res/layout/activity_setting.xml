@@ -59,7 +59,7 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/iv_settings_facarec"
             android:padding="@dimen/preference_item_padding"
-            android:text="选择人脸识别算法"
+            android:text="选择人脸识别算法[EigenFace]"
             android:textColor="@color/text_preference_key"
             android:textSize="@dimen/text_preference_item" />
     </RelativeLayout>
@@ -69,6 +69,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/preference_item"
         android:clickable="true"
+        android:visibility="gone"
         android:gravity="center_vertical" >
 
         <RadioGroup
@@ -100,6 +101,7 @@
                 android:onClick="rb_face_fisher"
                 android:text="Fisher"
                 android:textAlignment="center"
+                android:visibility="invisible"
                 android:textColor="#333" />
 
             <RadioButton
@@ -113,10 +115,53 @@
                 android:onClick="rb_face_lbph"
                 android:text="LBPH"
                 android:textAlignment="center"
+                android:visibility="invisible"
                 android:textColor="#333" />
         </RadioGroup>
     </RelativeLayout>
     
+    
+    
+    <RelativeLayout
+        android:id="@+id/rl_settings_model"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/preference_item"
+        android:clickable="true"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/iv_settings_model"
+            android:layout_width="@dimen/preference_item_image"
+            android:layout_height="@dimen/preference_item_image"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:src="@drawable/setting_model" />
+
+        <TextView
+            android:id="@+id/tv_settings_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/iv_settings_model"
+            android:padding="@dimen/preference_item_padding"
+            android:text="重新计算模型数据"
+            android:textColor="@color/text_preference_key"
+            android:textSize="@dimen/text_preference_item" />
+
+        <!-- <ImageView
+            android:id="@+id/iv_settings_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tv_settings_users"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/iv_preference_arrowright"
+            android:scaleType="matrix" /> -->
+    </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_settings_users"
         android:layout_width="fill_parent"
@@ -132,7 +177,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:scaleType="center"
-            android:src="@drawable/setting_about" />
+            android:src="@drawable/setting_pic" />
 
         <TextView
             android:id="@+id/tv_settings_users"
@@ -156,7 +201,7 @@
             android:background="@drawable/iv_preference_arrowright"
             android:scaleType="matrix" />
     </RelativeLayout>
-
+    
     <RelativeLayout
         android:id="@+id/rl_settings_version"
         android:layout_width="fill_parent"
@@ -213,7 +258,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:scaleType="center"
-            android:src="@drawable/setting_message" />
+            android:src="@drawable/setting_location" />
 
         <TextView
             android:id="@+id/tv_settings_feedback"
@@ -253,7 +298,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:scaleType="center"
-            android:src="@drawable/cloud_purple_no" />
+            android:src="@drawable/setting_author" />
 
         <TextView
             android:id="@+id/tv_settings_aboutus"

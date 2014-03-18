@@ -7,12 +7,20 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/*
+ * Class:     edu_thu_xface_libs_XFaceLibrary
+ * Method:    nativeInitFacerec
+ * Signature: (Ljava/lang/String;Ljava/lang/String;IDI)J
+ */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeTrainModel(
+		JNIEnv *, jclass, jstring, jstring, jstring, jint, jdouble);
+
 /*
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeInitFacerec
  * Signature: (Ljava/lang/String;Ljava/lang/String;IDI)J
  */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeInitFacerec(
-		JNIEnv *, jclass, jstring, jstring, jint, jdouble, jint);
+		JNIEnv *, jclass, jstring, jstring, jint, jdouble);
 /*
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeFacerec

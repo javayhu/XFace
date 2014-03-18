@@ -69,7 +69,8 @@ obj/local/armeabi-v7a/objs/xface/eigenfaces.o: jni/eigenfaces.cpp \
  /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/valarray \
  /Users/hujiawei/Android/opencv_sdk/sdk/native/jni/include/opencv2/contrib/openfabmap.hpp \
  /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/set \
- jni/eigenfaces.hpp
+ jni/eigenfaces.hpp \
+ /Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/android/log.h
 
 jni/helper.hpp:
 
@@ -212,3 +213,5 @@ jni/helper.hpp:
 /Users/hujiawei/Android/android_ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/set:
 
 jni/eigenfaces.hpp:
+
+/Users/hujiawei/Android/android_ndk/platforms/android-8/arch-arm/usr/include/android/log.h:

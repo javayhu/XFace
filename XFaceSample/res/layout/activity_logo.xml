@@ -17,7 +17,7 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/btn_logo_register"
+            android:id="@+id/btn_logo_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -30,7 +30,7 @@
             android:textSize="@dimen/btn_big_textsize" />
 
         <Button
-            android:id="@+id/btn_logo_login"
+            android:id="@+id/btn_logo_signin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
