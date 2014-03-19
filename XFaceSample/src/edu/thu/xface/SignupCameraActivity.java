@@ -16,6 +16,7 @@ import org.opencv.imgproc.Imgproc;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -90,7 +91,7 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 		}
 		// async do -> runtime exception: method called after release()
 		// maybe the activity releases before the thread returns!
-		Mat image = Highgui.imread(filePath);
+		final Mat image = Highgui.imread(filePath);
 		int width = image.width();
 		int height = image.height();
 		if (width > height) {// portrait should be rotated! direction? yes!
@@ -136,14 +137,41 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 			e.printStackTrace();
 		}
 		Log.i(TAG, "image process ok");
-		ToastUtil.showShortToast(getApplicationContext(), "照片保存成功哟!");
+		// ToastUtil.showShortToast(getApplicationContext(), "照片保存成功哟!");
+
+		// add this pic to the model data
+		new AsyncTask<Void, Void, Boolean>() {
+
+			@Override
+			protected Boolean doInBackground(Void... params) {
+				if (new XFaceLibrary().addImage(image, userid) > 0) {
+					return true;
+				}// calculate new projection and save the new model
+				return false;
+			}
+
+			@Override
+			protected void onPostExecute(Boolean result) {
+				if (result) {
+					ToastUtil.showShortToast(getApplicationContext(), "照片保存成功，模型建立好咯!");
+				} else {
+					ToastUtil.showShortToast(getApplicationContext(), "照片保存成功，模型建立失败啦!");
+				}
+			}
+
+			@Override
+			protected void onPreExecute() {
+				ToastUtil.showShortToast(getApplicationContext(), "照片保存中...");
+			}
+
+		}.execute();
 
 		// go to logo activity
-//		Intent intent = new Intent(SignupCameraActivity.this, LogoActivity.class);
-//		startActivity(intent);
-//		SignupCameraActivity.this.finish();// ps: sometimes it encounters a null pointer exception!
+		// Intent intent = new Intent(SignupCameraActivity.this, LogoActivity.class);
+		// startActivity(intent);
+		// SignupCameraActivity.this.finish();// ps: sometimes it encounters a null pointer exception!
 		// this problem is caused by mOpenCvCameraView
-		//in order to solve this problem, do not finish it! user can save many pictures once!
+		// in order to solve this problem, do not finish it! user can save many pictures once!
 	}
 
 	public void btn_camera_takepic(View view) {

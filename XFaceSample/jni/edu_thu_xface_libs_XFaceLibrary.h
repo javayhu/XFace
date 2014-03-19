@@ -10,10 +10,17 @@ extern "C" {
 
 /*
  * Class:     edu_thu_xface_libs_XFaceLibrary
- * Method:    nativeInitFacerec
+ * Method:    nativeTrainModel
  * Signature: (Ljava/lang/String;Ljava/lang/String;IDI)J
  */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeTrainModel(
 		JNIEnv *, jclass, jstring, jstring, jstring, jint, jdouble);
+
+ /*
+  * Class:     edu_thu_xface_libs_XFaceLibrary
+  * Method:    nativeAddImage
+  * Signature: (Ljava/lang/String;Ljava/lang/String;IDI)J
+  */JNIEXPORT jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeAddImage(
+ 		JNIEnv *, jclass, jstring, jlong, jint);
 
 /*
  * Class:     edu_thu_xface_libs_XFaceLibrary

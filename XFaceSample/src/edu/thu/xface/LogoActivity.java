@@ -53,7 +53,7 @@ public class LogoActivity extends Activity {
 				protected void onPostExecute(Boolean result) {
 					if (result) {
 						ToastUtil.showShortToast(getApplicationContext(), "应用程序初始化成功咯!");
-						btn_logo_signin.setEnabled(true);
+						btn_logo_signin.setEnabled(true);//model can be used
 					} else {
 						ToastUtil.showShortToast(getApplicationContext(), "应用程序初始化失败啦!");
 					}

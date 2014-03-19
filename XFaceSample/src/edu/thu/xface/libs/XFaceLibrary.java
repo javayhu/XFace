@@ -24,6 +24,10 @@ public class XFaceLibrary {
 		return xface;
 	}
 
+	public int addImage(Mat image, int label) {
+		return nativeAddImage(CommonUtil.FACERECMODEL_FILEPATH, image.nativeObj, label);
+	}
+
 	public long initFacerec() {
 		xface = nativeInitFacerec(CommonUtil.FACEDATA_FILEPATH, CommonUtil.FACERECMODEL_FILEPATH,
 				CommonUtil.EIGEN_COMPONENT, CommonUtil.EIGEN_THRESHOLD);
@@ -41,6 +45,8 @@ public class XFaceLibrary {
 
 	private static native long nativeTrainModel(String datapath, String orlpath, String modelpath, int component,
 			double threshold);
+
+	private static native int nativeAddImage(String modelpath, long addr, int label);
 
 	private static native long nativeInitFacerec(String datapath, String modelpath, int component, double threshold);
 

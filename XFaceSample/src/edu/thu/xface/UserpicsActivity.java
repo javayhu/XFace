@@ -1,10 +1,7 @@
 package edu.thu.xface;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,8 +9,13 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.View.OnCreateContextMenuListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
 import android.widget.TextView;
 import edu.thu.xface.adapter.UserpicInfo;
 import edu.thu.xface.adapter.UserpicSwipeAdapter;
@@ -31,7 +33,7 @@ public class UserpicsActivity extends Activity {
 
 	private List<UserpicInfo> data = new ArrayList<UserpicInfo>();
 
-	private SwipeListView mListView;
+	private ListView mListView;
 	private TextView tv_userlist_title;
 
 	private UserpicSwipeAdapter mAdapter;
@@ -47,30 +49,28 @@ public class UserpicsActivity extends Activity {
 		tv_userlist_title.setText("[" + userid + "] " + username);
 
 		data = CommonUtil.getAllUserpics(userid);
-		mListView = (SwipeListView) findViewById(R.id.lv_userpics_userlist);
-		mAdapter = new UserpicSwipeAdapter(this, data, mListView.getRightViewWidth());
-
-		mAdapter.setOnRightItemClickListener(new UserpicSwipeAdapter.onRightItemClickListener() {
-			@Override
-			public void onRightItemClick(View v, int position) {
-				// ToastUtil.showShortToast(getApplicationContext(), "delete " + (position + 1) + "! 暂不支持删除操作! ");
-				deleteUserpic(data.get(position));
-				data.remove(position);
-				mAdapter.notifyDataSetChanged();
-				// java.lang.UnsupportedOperationException: removeViewAt(int) is not supported in AdapterView
-				// mListView.removeViewAt(position);//
-				// mListView.invalidate();
-			}
-		});
-
+		mListView = (ListView) findViewById(R.id.lv_userpics_userlist);
+		mAdapter = new UserpicSwipeAdapter(getApplicationContext(), data);
 		mListView.setAdapter(mAdapter);
 
-		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		mListView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// Toast.makeText(UserpicsActivity.this, "item onclick " + position, Toast.LENGTH_SHORT).show();
+			public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+				menu.add(0, 0, 0, "删除");
 			}
 		});
+
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
+		int position = menuInfo.position;
+//		ToastUtil.showShortToast(getApplicationContext(), "delete " + (position) + "!");
+		deleteUserpic(data.get(position));
+		data.remove(position);
+		mAdapter.notifyDataSetChanged();
+		return super.onContextItemSelected(item);
 	}
 
 	// delete user picture
@@ -89,7 +89,7 @@ public class UserpicsActivity extends Activity {
 		try {
 			file2.createNewFile();// new on!
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file2));
-			File demofolder = CommonUtil.DEMOFOLDER;
+			File demofolder = CommonUtil.USERFOLDER;
 			File[] folders = demofolder.listFiles();
 			File folder;
 			for (int i = 0; i < folders.length; i++) {
@@ -104,7 +104,7 @@ public class UserpicsActivity extends Activity {
 			e.printStackTrace();
 		}
 		// delete one pic projection!
-		//TODO! wait for another rebuild model!
+		// TODO! wait for another rebuild model!
 	}
 
 	public void btn_userpics_back(View view) {

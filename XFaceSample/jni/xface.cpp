@@ -26,8 +26,8 @@ using namespace cv;
 //------------------------------------------------------------------------------
 
 // read csv file to get images and labels(integer)
-static void read_csv(const string& filename, vector<Mat>& images,
-		vector<int>& labels, char separator = ';') {
+static void read_csv(const string& filename, vector<Mat>& images, vector<int>& labels,
+		char separator = ';') {
 	std::ifstream file(filename.c_str(), ifstream::in);
 	if (!file) {
 		LOGD("No valid input file was given, please check the given filename.");
@@ -47,10 +47,11 @@ static void read_csv(const string& filename, vector<Mat>& images,
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeInitFacerec
  * Signature: (Ljava/lang/String;Ljava/lang/String;IDI)J
- */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeTrainModel(
-		JNIEnv * jenv, jclass jclazz, jstring jdatapath, jstring jorlpath,
-		jstring jmodelpath, jint component, jdouble threshold) {
-	LOGD("#### native train model");//about 44 seconds
+ */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeTrainModel(JNIEnv * jenv,
+		jclass jclazz, jstring jdatapath, jstring jorlpath, jstring jmodelpath, jint component,
+		jdouble threshold) {
+	LOGD("#### native train model");
+	//about 44 seconds
 	//facerec algorithm
 	const char* dpath = jenv->GetStringUTFChars(jdatapath, NULL);
 	string datapath(dpath);
@@ -91,7 +92,7 @@ static void read_csv(const string& filename, vector<Mat>& images,
 	}
 
 	for (int i = 0; i < images.size(); i++) {
-		orlImages.push_back(images.at(i));//put images to orlImages!-> first orl images, then user images
+		orlImages.push_back(images.at(i)); //put images to orlImages!-> first orl images, then user images
 //		labels.push_back(orlLabels.at(i));//do not add labels!
 	}
 
@@ -107,11 +108,32 @@ static void read_csv(const string& filename, vector<Mat>& images,
 
 /*
  * Class:     edu_thu_xface_libs_XFaceLibrary
+ * Method:    nativeAddImage
+ * Signature: (Ljava/lang/String;Ljava/lang/String;IDI)J
+ */jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeAddImage(JNIEnv * jenv, jclass jclazz,
+		jstring jmodelpath, jlong mataddr, jint label) {
+	LOGD("#### add image label=%d,mataddr=%lld", label, mataddr);
+	//xfacerec now is useless
+	const char* mpath = jenv->GetStringUTFChars(jmodelpath, NULL);
+	string modelpath(mpath);
+	jint result = -1;
+	Mat sample = *((Mat*) mataddr);
+
+	// eigenfaces
+	Eigenfaces eigenfaces;
+	eigenfaces.load(modelpath);
+	result = eigenfaces.addImage(modelpath, sample, label);
+	LOGD("add image ok");
+
+	return result;
+}
+
+/*
+ * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeInitFacerec
  * Signature: (Ljava/lang/String;Ljava/lang/String;)I
- */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeInitFacerec(
-		JNIEnv * jenv, jclass jclazz, jstring jdatapath, jstring jmodelpath,
-		jint component, jdouble threshold) {
+ */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeInitFacerec(JNIEnv * jenv,
+		jclass jclazz, jstring jdatapath, jstring jmodelpath, jint component, jdouble threshold) {
 	LOGD("#### native init facerec");
 	//facerec algorithm
 //	const char* dpath = jenv->GetStringUTFChars(jdatapath, NULL);
@@ -185,9 +207,8 @@ static void read_csv(const string& filename, vector<Mat>& images,
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeFacerec
  * Signature: (Ljava/lang/String;)I
- */JNIEXPORT jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeFacerec(
-		JNIEnv * jenv, jclass jclazz, jstring jmodelpath, jlong xfacerec,
-		jlong mataddr, jint width, jint height) {
+ */JNIEXPORT jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeFacerec(JNIEnv * jenv,
+		jclass jclazz, jstring jmodelpath, jlong xfacerec, jlong mataddr, jint width, jint height) {
 	LOGD("#### facerec xfacerec=%lld,mataddr=%lld", xfacerec, mataddr);
 	//xfacerec now is useless
 	const char* mpath = jenv->GetStringUTFChars(jmodelpath, NULL);
@@ -234,8 +255,8 @@ static void read_csv(const string& filename, vector<Mat>& images,
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeDestoryFacerec
  * Signature: ()I
- */JNIEXPORT jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestoryFacerec(
-		JNIEnv * jenv, jclass jclazz, jlong xfacerec) {
+ */JNIEXPORT jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestoryFacerec(JNIEnv * jenv,
+		jclass jclazz, jlong xfacerec) {
 	LOGD("native destory facerec");
 	return 1;
 }
@@ -251,8 +272,8 @@ inline void vector_Rect_to_Mat(vector<Rect>& v_rect, Mat& mat) {
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeCreateObject
  * Signature: (Ljava/lang/String;I)J
- */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeInitFacedetect(
-		JNIEnv * jenv, jclass, jstring jFileName, jint faceSize) {
+ */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeInitFacedetect(JNIEnv * jenv,
+		jclass, jstring jFileName, jint faceSize) {
 	LOGD( "Java_edu_thu_xface_libs_XFaceLibrary_nativeCreateObject enter");
 	const char* jnamestr = jenv->GetStringUTFChars(jFileName, NULL);
 	string stdFileName(jnamestr);
@@ -285,8 +306,8 @@ inline void vector_Rect_to_Mat(vector<Rect>& v_rect, Mat& mat) {
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeDestroyObject
  * Signature: (J)V
- */JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestroyFacedetect(
-		JNIEnv * jenv, jclass, jlong thiz) {
+ */JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestroyFacedetect(JNIEnv * jenv,
+		jclass, jlong thiz) {
 	LOGD( "Java_edu_thu_xface_libs_XFaceLibrary_nativeDestroyObject enter");
 	try {
 		if (thiz != 0) {
@@ -312,8 +333,8 @@ inline void vector_Rect_to_Mat(vector<Rect>& v_rect, Mat& mat) {
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeStart
  * Signature: (J)V
- */JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeStartFacedetect(
-		JNIEnv * jenv, jclass, jlong thiz) {
+ */JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeStartFacedetect(JNIEnv * jenv,
+		jclass, jlong thiz) {
 	LOGD("Java_edu_thu_xface_libs_XFaceLibrary_nativeStart enter");
 	try {
 		((DetectionBasedTracker*) thiz)->run();
@@ -336,8 +357,8 @@ inline void vector_Rect_to_Mat(vector<Rect>& v_rect, Mat& mat) {
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeStop
  * Signature: (J)V
- */JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeStopFacedetect(
-		JNIEnv * jenv, jclass, jlong thiz) {
+ */JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeStopFacedetect(JNIEnv * jenv,
+		jclass, jlong thiz) {
 	LOGD("Java_edu_thu_xface_libs_XFaceLibrary_nativeStop enter");
 	try {
 		((DetectionBasedTracker*) thiz)->stop();
@@ -360,8 +381,8 @@ inline void vector_Rect_to_Mat(vector<Rect>& v_rect, Mat& mat) {
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeSetFaceSize
  * Signature: (JI)V
- */JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeSetFaceSize(
-		JNIEnv * jenv, jclass, jlong thiz, jint faceSize) {
+ */JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeSetFaceSize(JNIEnv * jenv,
+		jclass, jlong thiz, jint faceSize) {
 	LOGD( "Java_edu_thu_xface_libs_XFaceLibrary_nativeSetFaceSize enter");
 	try {
 		if (faceSize > 0) {
@@ -389,8 +410,8 @@ inline void vector_Rect_to_Mat(vector<Rect>& v_rect, Mat& mat) {
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeDetect
  * Signature: (JJJ)V
- */JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeFacedetect(
-		JNIEnv * jenv, jclass, jlong thiz, jlong imageGray, jlong faces) {
+ */JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeFacedetect(JNIEnv * jenv, jclass,
+		jlong thiz, jlong imageGray, jlong faces) {
 	LOGD("Java_edu_thu_xface_libs_XFaceLibrary_nativeDetect enter");
 	try {
 		vector<Rect> RectFaces;

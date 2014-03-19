@@ -138,6 +138,15 @@ int Eigenfaces::predict(const Mat& src) {
 	return label;
 }
 
+int Eigenfaces::addImage(const string& path, const Mat& image, int label){
+	int result = 1;
+	Mat q = project(image.reshape(1, 1));
+	_projections.push_back(q);
+	_labels.push_back(label);
+	save(path);
+	return result;
+}
+
 Mat Eigenfaces::project(const Mat& src) {
 	Mat W = _eigenvectors;
 	Mat mean = _mean;

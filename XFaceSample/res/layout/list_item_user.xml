@@ -31,7 +31,7 @@
             android:textColor="@color/grey" />
     </RelativeLayout>
 
-    <RelativeLayout
+<!--     <RelativeLayout
         android:id="@+id/item_right"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -46,6 +46,6 @@
             android:gravity="center"
             android:text="删除"
             android:textColor="@color/blur_bg" />
-    </RelativeLayout>
+    </RelativeLayout> -->
 
 </LinearLayout>

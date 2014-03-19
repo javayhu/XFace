@@ -35,7 +35,9 @@
             android:textSize="@dimen/text_titlebar_center" />
     </RelativeLayout>
 
-    <edu.thu.xface.SwipeListView
+    <!-- edu.thu.xface.SwipeListView -->
+
+    <ListView
         android:id="@+id/lv_users_userlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
