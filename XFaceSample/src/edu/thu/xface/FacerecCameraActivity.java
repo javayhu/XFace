@@ -56,12 +56,12 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 		// tv_facerec_result = (TextView) findViewById(R.id.tv_facerec_result);
 
 		// / face detection!
-		xface = new XFaceLibrary();// hujiawei
+		// xface = new XFaceLibrary();// hujiawei
+		xface = CommonUtil.xFaceLibrary;
 		xface.initFacedetect(CommonUtil.LBPCASCADE_FILEPATH, 0);
 		// / face detection!
 
 		mOpenCvCameraView = (JavaCameraView) findViewById(R.id.cv_facerec_camera);
-		// mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
 		mOpenCvCameraView.setCvCameraViewListener(this);
 		mOpenCvCameraView.enableView();
 
@@ -73,27 +73,19 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 					if (result == -1) {
 						Log.i(TAG, "unkown person!");
 						ToastUtil.showShortToast(getApplicationContext(), "I do't know you !");
-						// tv_facerec_result.setText("I don't know you! ");
 					} else {
 						String name = CommonUtil.userProps.getProperty(String.valueOf(result));
 						Log.i(TAG, "user id=" + result + " ## name=" + name);
 						ToastUtil.showShortToast(getApplicationContext(), count + ": You are " + name + " !");
 						count++;
-						// tv_facerec_result.setText(count + ": You are " + name + " ! ");
 					}
 				} else {// when init! arg2=0
-					if (result == -2) {
-						Log.i(TAG, "less than 2 images");
-						ToastUtil.showShortToast(getApplicationContext(), "less than 2 images");
-						// tv_facerec_result.setText("Less than 2 images");
-					} else if (result == -1) {
-						Log.i(TAG, "invalid file");
-						ToastUtil.showShortToast(getApplicationContext(), "invalid file");
-						// tv_facerec_result.setText("Invalid data file");
+					if (result == 0) {
+						Log.i(TAG, "init facerec fail, result=" + result);
+						ToastUtil.showShortToast(getApplicationContext(), "Initialization Fail!");
 					} else {
 						Log.i(TAG, "init facerec ok, result=" + result);
 						ToastUtil.showShortToast(getApplicationContext(), "Initialization Successfully!");
-						// tv_facerec_result.setText("Initialization Successfully!");
 					}
 				}
 
@@ -107,17 +99,19 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 				Log.i(TAG, "bInitFacerec= " + bInitFacerec + " $$ bExitRecognition= " + bExitRecognition
 						+ " $$ frameprocessing=" + bFrameProcessing);
 				if (!bInitFacerec) {// facerec init?
-					long result = xface.initFacerec();// it will take a lot of time!
-					Log.i(TAG, "init facerec result is " + result);
+					long result = xface.xfacerec;
+					if (result == 0) {
+						result = xface.initFacerec();// it will take a lot of time!
+					}
 					Message message = new Message();
-					message.arg1 = (int) result;// 1/-1/-2
+					message.arg1 = (int) result;// 0/(very large value)
 					message.arg2 = 0;// doing init!
 					handler.sendMessage(message);
 					// what if initialize failed?!
 					if (result > 0) {
 						bInitFacerec = true;// no longer init!
 					} else {
-						return;//if fail, stop the thread!
+						return;// if fail, stop the thread!
 					}
 				}// problem exist! if facerec not initialized, face rec action will still do! solution is above!
 				while (!bExitRecognition) {// is recognition exits?
@@ -153,7 +147,6 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 	public void btn_facerec_back(View view) {
 		Log.i(TAG, "btn_facerec_back");
 		FacerecCameraActivity.this.finish();//
-		// should the activity finishs?yes!
 	}
 
 	// onpause, onresume has problems!!!TODO!
@@ -194,9 +187,9 @@ public class FacerecCameraActivity extends Activity implements CvCameraViewListe
 
 	public void onCameraViewStopped() {
 		Log.i(TAG, "camera view stop");
-		xface.destoryFacerec();
 		mGray.release();
 		mRgba.release();
+//		xface.destoryFacerec();//can not be destoryed
 		xface.stopFacedetect();
 	}
 

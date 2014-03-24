@@ -42,6 +42,7 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 	private String filePath;
 	private boolean bPictaken = false;
 
+	private Button btn_camera_ok;
 	private Button btn_camera_takepic;
 	private SignupCameraView mOpenCvCameraView;
 
@@ -64,10 +65,12 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 		userid = getIntent().getIntExtra("userid", -1);
 
 		Log.i(TAG, "name = " + name + " && userid = " + userid);
+		btn_camera_ok = (Button) findViewById(R.id.btn_camera_ok);
 		btn_camera_takepic = (Button) findViewById(R.id.btn_camera_takepic);
 
 		// / face detection!
-		xface = new XFaceLibrary();// hujiawei
+		// xface = new XFaceLibrary();// hujiawei
+		xface = CommonUtil.xFaceLibrary;
 		xface.initFacedetect(CommonUtil.LBPCASCADE_FILEPATH, 0);
 		// / face detection!
 
@@ -86,7 +89,6 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 		Log.i(TAG, "btn_camera_ok");
 		if (!bPictaken) {
 			ToastUtil.showShortToast(getApplicationContext(), "亲要先进行拍照哟!");
-			// SignupCameraActivity.this.finish();
 			return;// do not forget!
 		}
 		// async do -> runtime exception: method called after release()
@@ -137,17 +139,14 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 			e.printStackTrace();
 		}
 		Log.i(TAG, "image process ok");
-		// ToastUtil.showShortToast(getApplicationContext(), "照片保存成功哟!");
 
 		// add this pic to the model data
 		new AsyncTask<Void, Void, Boolean>() {
 
 			@Override
 			protected Boolean doInBackground(Void... params) {
-				if (new XFaceLibrary().addImage(image, userid) > 0) {
-					return true;
-				}// calculate new projection and save the new model
-				return false;
+				xface.addImage(image, userid);//how to determinate the result of adding image?!TODO!
+				return true;
 			}
 
 			@Override
@@ -157,27 +156,21 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 				} else {
 					ToastUtil.showShortToast(getApplicationContext(), "照片保存成功，模型建立失败啦!");
 				}
+				btn_camera_ok.setEnabled(true);
 			}
 
 			@Override
 			protected void onPreExecute() {
 				ToastUtil.showShortToast(getApplicationContext(), "照片保存中...");
+				btn_camera_ok.setEnabled(false);// can not let user save two images at the same time!
 			}
 
 		}.execute();
-
-		// go to logo activity
-		// Intent intent = new Intent(SignupCameraActivity.this, LogoActivity.class);
-		// startActivity(intent);
-		// SignupCameraActivity.this.finish();// ps: sometimes it encounters a null pointer exception!
-		// this problem is caused by mOpenCvCameraView
-		// in order to solve this problem, do not finish it! user can save many pictures once!
 	}
 
 	public void btn_camera_takepic(View view) {
 		Log.i(TAG, "btn_camera_takepic");
-		filePath = CommonUtil.CAMERAFOLDER.getAbsolutePath() + File.separator + System.currentTimeMillis() + ".jpg";// folder
-																													// camera
+		filePath = CommonUtil.CAMERAFOLDER.getAbsolutePath() + File.separator + System.currentTimeMillis() + ".jpg";
 		mOpenCvCameraView.takePicture(filePath);
 		btn_camera_takepic.setText("Take this to replace!");
 		ToastUtil.showShortToast(getApplicationContext(), filePath + " saved");

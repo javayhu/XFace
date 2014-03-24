@@ -48,25 +48,19 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
  * Method:    nativeInitFacerec
  * Signature: (Ljava/lang/String;Ljava/lang/String;IDI)J
  */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeTrainModel(JNIEnv * jenv,
-		jclass jclazz, jstring jdatapath, jstring jorlpath, jstring jmodelpath, jint component,
-		jdouble threshold) {
-	LOGD("#### native train model");
-	//about 44 seconds
-	//facerec algorithm
+		jclass jclazz, jlong xfacerec, jstring jdatapath, jstring jorlpath, jstring jmodelpath,
+		jint component, jdouble threshold) {
+	LOGD("#### native train model xfacerec=%lld", xfacerec);
+	//0
 	const char* dpath = jenv->GetStringUTFChars(jdatapath, NULL);
 	string datapath(dpath);
 	const char* mpath = jenv->GetStringUTFChars(jmodelpath, NULL);
 	string modelpath(mpath);
 	const char* opath = jenv->GetStringUTFChars(jorlpath, NULL);
 	string orlpath(opath);
-	//	LOGD("data path is %s.", dpath);
-	//when log using string get this error!
-	//error: cannot pass objects of non-trivially-copyable type 'std::string {aka struct std::basic_string<char>}' through '...'
 	jlong result = 1;
-	// These vectors hold the images and corresponding labels.
 	vector<Mat> images;
 	vector<int> labels;
-	// Read in the data. This can fail if no valid input filename is given.
 	try {
 		read_csv(datapath, images, labels);
 	} catch (cv::Exception& e) {
@@ -74,12 +68,6 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
 		result = -1;
 		return result;
 	}
-	// Quit if there are not enough images for this demo.
-//	if (images.size() <= 1) {
-//		LOGD("This demo needs at least 2 images to work.");
-//		result = -2;
-//		return result;
-//	}
 
 	vector<Mat> orlImages;
 	vector<int> orlLabels;
@@ -96,11 +84,15 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
 //		labels.push_back(orlLabels.at(i));//do not add labels!
 	}
 
+	// if old xfacerec exists! destroy it!
+	if (xfacerec != 0) {
+		delete (Eigenfaces*) xfacerec;
+	}
 	// eigenfaces --> attention: orlImages's size is not as much as labels
-	Eigenfaces eigenfaces(orlImages, labels, component, threshold); //
-	eigenfaces.save(modelpath);
-	result = (long) (&eigenfaces);
-	LOGD("native model saved, address is %lld ", result);
+	Eigenfaces* eigenfaces = new Eigenfaces(orlImages, labels, component, threshold); //
+	(*eigenfaces).save(modelpath);
+	result = (jlong) (eigenfaces);
+	LOGD("#### native train model end, address is %lld ", result);
 	// end
 
 	return result;
@@ -110,22 +102,23 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeAddImage
  * Signature: (Ljava/lang/String;Ljava/lang/String;IDI)J
- */jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeAddImage(JNIEnv * jenv, jclass jclazz,
-		jstring jmodelpath, jlong mataddr, jint label) {
-	LOGD("#### add image label=%d,mataddr=%lld", label, mataddr);
-	//xfacerec now is useless
+ */void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeAddImage(JNIEnv * jenv, jclass jclazz,
+		jlong xfacerec, jstring jmodelpath, jlong mataddr, jint label) {
+	LOGD("#### native add image xfacerec=%lld, label=%d, mataddr=%lld", xfacerec, label, mataddr);
 	const char* mpath = jenv->GetStringUTFChars(jmodelpath, NULL);
 	string modelpath(mpath);
-	jint result = -1;
 	Mat sample = *((Mat*) mataddr);
 
-	// eigenfaces
-	Eigenfaces eigenfaces;
-	eigenfaces.load(modelpath);
-	result = eigenfaces.addImage(modelpath, sample, label);
-	LOGD("add image ok");
+	// similar but wrong code! reason: the orignal eigenfaces do not change!
+//	Eigenfaces eigenfaces = *((Eigenfaces*) (xfacerec));
+//	eigenfaces.addImage(modelpath, sample, label);
 
-	return result;
+	// eigenfaces
+	Eigenfaces* eigenfaces = ((Eigenfaces*) (xfacerec));
+	eigenfaces->addImage(modelpath, sample, label);
+//	result = (jlong) (&eigenfaces); //address changed! [hujiawei] I don't know why! --> different thread?!
+	LOGD("#### native add image ok, address is %lld", (jlong) (&eigenfaces));//though address changed, the heap object also changes
+	// end
 }
 
 /*
@@ -133,71 +126,17 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
  * Method:    nativeInitFacerec
  * Signature: (Ljava/lang/String;Ljava/lang/String;)I
  */JNIEXPORT jlong JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeInitFacerec(JNIEnv * jenv,
-		jclass jclazz, jstring jdatapath, jstring jmodelpath, jint component, jdouble threshold) {
-	LOGD("#### native init facerec");
-	//facerec algorithm
-//	const char* dpath = jenv->GetStringUTFChars(jdatapath, NULL);
-//	string datapath(dpath);
-//	const char* mpath = jenv->GetStringUTFChars(jmodelpath, NULL);
-//	string modelpath(mpath);
-//	LOGD("data path is %s.", dpath);
-	//when log using string get this error!
-	//error: cannot pass objects of non-trivially-copyable type 'std::string {aka struct std::basic_string<char>}' through '...'
-	jlong result = 1;
-	// These vectors hold the images and corresponding labels.
-//	vector<Mat> images;
-//	vector<int> labels;
-	// Read in the data. This can fail if no valid input filename is given.
-//	try {
-//		read_csv(datapath, images, labels);
-//	} catch (cv::Exception& e) {
-//		LOGD("error opening file,reason:%s", e.what());
-//		result = -1;
-//		return result;
-//	}
-	// Quit if there are not enough images for this demo.
-//	if (images.size() <= 1) {
-//		LOGD("This demo needs at least 2 images to work.");
-//		result = -2;
-//		return result;
-//	}
-
-//	vector<Mat> orlImages;
-//	vector<int> orlLabels;
-//	try {
-//		read_csv("/mnt/sdcard/xface/orlfaces.txt", orlImages, orlLabels);
-//	} catch (cv::Exception& e) {
-//		LOGD("error opening file,reason:%s", e.what());
-//		result = -1;
-//		return result;
-//	}
-//
-//	for (int i = 0; i < orlImages.size(); i++) {
-//		images.push_back(orlImages.at(i));
-//		labels.push_back(orlLabels.at(i));
-//	}
+		jclass jclazz, jstring jmodelpath, jint component, jdouble threshold) {
+	LOGD("#### native init facerec component=%d, threshold=%f", component, threshold);
+	const char* mpath = jenv->GetStringUTFChars(jmodelpath, NULL);
+	string modelpath(mpath);
+	jlong result = 0;
 
 	// eigenfaces
-//	Eigenfaces eigenfaces(images, labels, component, threshold); //
-//	eigenfaces.save(modelpath);
-//	result = (long) (&eigenfaces);
-//	LOGD("native model saved, address is %lld ", result);
-	// end
-
-	// opencv
-//	Ptr<FaceRecognizer> model;
-//	if (facerec == 1) {
-//		model = createEigenFaceRecognizer(); //component, threshold
-//	} else if (facerec == 2) {
-//		model = createFisherFaceRecognizer(); //component, threshold
-//	} else {
-//		model = createEigenFaceRecognizer(); //component, threshold
-//	}
-//	model->train(images, labels);
-//	model->save(modelpath);
-//	FaceRecognizer* recobj = model.obj;
-//	result = (jlong) (recobj); // wrong: (jlong) model
-//	LOGD("native model saved, result is %lld ", result);
+	Eigenfaces* eigenfaces = new Eigenfaces(component, threshold);
+	(*eigenfaces).load(modelpath);
+	result = (jlong) (eigenfaces);
+	LOGD("#### native init facerec end model saved, address is %lld ", result);
 	// end
 
 	return result;
@@ -208,14 +147,12 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
  * Method:    nativeFacerec
  * Signature: (Ljava/lang/String;)I
  */JNIEXPORT jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeFacerec(JNIEnv * jenv,
-		jclass jclazz, jstring jmodelpath, jlong xfacerec, jlong mataddr, jint width, jint height) {
-	LOGD("#### facerec xfacerec=%lld,mataddr=%lld", xfacerec, mataddr);
-	//xfacerec now is useless
+		jclass jclazz, jlong xfacerec, jstring jmodelpath, jlong mataddr, jint width, jint height) {
+	LOGD("#### native facerec xfacerec=%lld, mataddr=%lld", xfacerec, mataddr);
 	const char* mpath = jenv->GetStringUTFChars(jmodelpath, NULL);
 	string modelpath(mpath);
 	jint result = -1;
 	Mat sample = *((Mat*) mataddr);
-	//process image first
 	if (sample.rows < sample.cols) { //when rows < cols, that is height < width
 		flip(sample.t(), sample, 0); //**no need to flip now!**wrong**
 	}
@@ -223,31 +160,14 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
 //	imwrite("/mnt/sdcard/xface/sample.jpg", sample);
 
 	// eigenfaces
-	Eigenfaces eigenfaces;
-	eigenfaces.load(modelpath);
+	Eigenfaces eigenfaces = *((Eigenfaces*) (xfacerec));
 	result = eigenfaces.predict(sample);
-
-//    Eigenfaces* model2 = (Eigenfaces*)(xfacerec);
-	//Eigenfaces obtained is not the last one! that is to say all values in the eigenfaces are missing!
-//	Eigenfaces model2 = *((Eigenfaces*)(xfacerec));//&eigenfaces
-//	LOGD("native model obtained, address is %lld ", &model2);
-//    result = model2.predict(sample);
-
-//	long facelong = (long) (&eigenfaces);
-//	Eigenfaces eigenfaces2(facelong);
-//	result = eigenfaces2.predict(sample);
-	// end
-
-	// opencv
-//	FaceRecognizer* model = ((FaceRecognizer*) xfacerec);//error!
-//	result = model->predict(sample);
-//	result = (*((FaceRecognizer*) xfacerec)).predict(sample); //->predict(sample);
-//	Ptr<FaceRecognizer> model = createEigenFaceRecognizer();
-//	model->load(modelpath);
-//	result = model->predict(sample);
+	// similar but wrong code! not change the orignal object
+//	Eigenfaces* eigenfaces = ((Eigenfaces*) (xfacerec));
+//	eigenfaces->predict(sample);
 	//end
 
-	LOGD("predict result is %d", result);
+	LOGD("#### native facerec end result is %d, address is %lld", result, (jlong)(&eigenfaces));
 	return result;
 }
 
@@ -257,7 +177,11 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
  * Signature: ()I
  */JNIEXPORT jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestoryFacerec(JNIEnv * jenv,
 		jclass jclazz, jlong xfacerec) {
-	LOGD("native destory facerec");
+	LOGD("#### native destory facerec xfacerec=%lld", xfacerec);
+	if (xfacerec != 0) {
+		delete (Eigenfaces*) xfacerec;
+	}
+	LOGD("#### native destory facerec end");
 	return 1;
 }
 

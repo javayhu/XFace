@@ -15,71 +15,77 @@ public class XFaceLibrary {
 
 	private static final String TAG = "XFaceLibrary";
 
-	// face recognition!!
-	private long xface = 0;
+	// ------------------------------------------------------------------------------
+	// face recognition part
+	// ------------------------------------------------------------------------------
+
+	public long xfacerec = 0;//xface will be inited when app starts 
 
 	public long trainModel() {
-		xface = nativeTrainModel(CommonUtil.FACEDATA_FILEPATH, CommonUtil.ORLFACEDATA_FILEPATH,
+		xfacerec = nativeTrainModel(xfacerec, CommonUtil.FACEDATA_FILEPATH, CommonUtil.ORLFACEDATA_FILEPATH,
 				CommonUtil.FACERECMODEL_FILEPATH, CommonUtil.EIGEN_COMPONENT, CommonUtil.EIGEN_THRESHOLD);
-		return xface;
+		return xfacerec;
 	}
 
-	public int addImage(Mat image, int label) {
-		return nativeAddImage(CommonUtil.FACERECMODEL_FILEPATH, image.nativeObj, label);
+	public void addImage(Mat image, int label) {
+		nativeAddImage(xfacerec, CommonUtil.FACERECMODEL_FILEPATH, image.nativeObj, label);
 	}
 
 	public long initFacerec() {
-		xface = nativeInitFacerec(CommonUtil.FACEDATA_FILEPATH, CommonUtil.FACERECMODEL_FILEPATH,
-				CommonUtil.EIGEN_COMPONENT, CommonUtil.EIGEN_THRESHOLD);
-		return xface;
+		xfacerec = nativeInitFacerec(CommonUtil.FACERECMODEL_FILEPATH, CommonUtil.EIGEN_COMPONENT,
+				CommonUtil.EIGEN_THRESHOLD);
+		return xfacerec;
 	}
 
 	public int facerec(Mat mat) {
-		return nativeFacerec(CommonUtil.FACERECMODEL_FILEPATH, xface, mat.getNativeObjAddr(), CommonUtil.IMAGE_WIDTH,
+		return nativeFacerec(xfacerec, CommonUtil.FACERECMODEL_FILEPATH, mat.getNativeObjAddr(), CommonUtil.IMAGE_WIDTH,
 				CommonUtil.IMAGE_HEIGHT);
 	}
 
 	public int destoryFacerec() {
-		return nativeDestoryFacerec(xface);
+		return nativeDestoryFacerec(xfacerec);
 	}
 
-	private static native long nativeTrainModel(String datapath, String orlpath, String modelpath, int component,
+	private static native long nativeTrainModel(long xfacrec, String datapath, String orlpath, String modelpath, int component,
 			double threshold);
 
-	private static native int nativeAddImage(String modelpath, long addr, int label);
+	private static native void nativeAddImage(long xfacerec, String modelpath, long addr, int label);
 
-	private static native long nativeInitFacerec(String datapath, String modelpath, int component, double threshold);
+	private static native long nativeInitFacerec(String modelpath, int component, double threshold);
 
-	private static native int nativeFacerec(String modelpath, long xfacerec, long addr, int width, int height);
+	private static native int nativeFacerec(long xfacerec, String modelpath, long addr, int width, int height);
 
 	private static native int nativeDestoryFacerec(long xfacerec);
 
-	// face detecion!!!
-	private long mNativeObj = 0;
+	// ------------------------------------------------------------------------------
+	// face detection part
+	// ------------------------------------------------------------------------------
+
+	public long xfacedec = 0;
 
 	public void initFacedetect(String cascadeName, int minFaceSize) {
-		mNativeObj = nativeInitFacedetect(cascadeName, minFaceSize);
+		xfacedec = nativeInitFacedetect(cascadeName, minFaceSize);
 	}
 
 	public void startFacedetect() {
-		nativeStartFacedetect(mNativeObj);
+		nativeStartFacedetect(xfacedec);
 	}
 
 	public void stopFacedetect() {
-		nativeStopFacedetect(mNativeObj);
+		nativeStopFacedetect(xfacedec);
 	}
 
 	public void setMinFaceSize(int size) {
-		nativeSetFaceSize(mNativeObj, size);
+		nativeSetFaceSize(xfacedec, size);
 	}
 
 	public void facedetect(Mat imageGray, MatOfRect faces) {
-		nativeFacedetect(mNativeObj, imageGray.getNativeObjAddr(), faces.getNativeObjAddr());
+		nativeFacedetect(xfacedec, imageGray.getNativeObjAddr(), faces.getNativeObjAddr());
 	}
 
 	public void destroryFacedetect() {
-		nativeDestroyFacedetect(mNativeObj);
-		mNativeObj = 0;
+		nativeDestroyFacedetect(xfacedec);
+		xfacedec = 0;
 	}
 
 	private static native long nativeInitFacedetect(String cascadeName, int minFaceSize);

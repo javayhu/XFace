@@ -53,7 +53,7 @@ public class LogoActivity extends Activity {
 				protected void onPostExecute(Boolean result) {
 					if (result) {
 						ToastUtil.showShortToast(getApplicationContext(), "应用程序初始化成功咯!");
-						btn_logo_signin.setEnabled(true);//model can be used
+						btn_logo_signin.setEnabled(true);// model can be used
 					} else {
 						ToastUtil.showShortToast(getApplicationContext(), "应用程序初始化失败啦!");
 					}
@@ -72,14 +72,23 @@ public class LogoActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add("Setting");
+		menu.add("Exit");
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Log.i(TAG, "called onOptionsItemSelected; selected item: " + item);
-		Intent intent = new Intent(LogoActivity.this, SettingActivity.class);
-		startActivity(intent);
+		if (item.getTitle().equals("Setting")) {
+			Intent intent = new Intent(LogoActivity.this, SettingActivity.class);
+			startActivity(intent);
+		} else {
+			if (CommonUtil.xFaceLibrary != null && CommonUtil.xFaceLibrary.xfacerec != 0) {
+				CommonUtil.xFaceLibrary.destoryFacerec();//it is time to destory it!
+			}
+			LogoActivity.this.finish();
+			System.exit(0);
+		}
 		return true;
 	}
 

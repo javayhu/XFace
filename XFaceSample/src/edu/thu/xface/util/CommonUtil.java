@@ -23,6 +23,7 @@ import android.util.Log;
 import edu.thu.xface.R;
 import edu.thu.xface.adapter.UserInfo;
 import edu.thu.xface.adapter.UserpicInfo;
+import edu.thu.xface.libs.XFaceLibrary;
 
 /**
  * 公共参数工具类
@@ -35,6 +36,7 @@ public class CommonUtil {
 	private static final String TAG = "CommonUtil";
 
 	public static boolean isAppInit = false;
+	public static XFaceLibrary xFaceLibrary;
 
 	public static final String CONFIG_FILENAME = "config.properties";// app config
 	public static final String USERS_FILENAME = "users.properties";// user infos
@@ -47,7 +49,6 @@ public class CommonUtil {
 	public static final String FACE_EIGEN = "eigenface";
 	public static final String FACE_FISHER = "fisherface";
 	public static final String FACE_LBPH = "lbphface";
-
 	public static final String ORL_FACES = "orl_faces";
 
 	public static String FACEDATA_FILEPATH;
@@ -126,7 +127,6 @@ public class CommonUtil {
 				}
 				FACEDATA_FILEPATH = facedataFile.getAbsolutePath();// data
 				ORLFACEDATA_FILEPATH = SDFOLDER.getAbsolutePath() + File.separator + ORLFACEDATA_FILENAME;// orl face
-																											// data txt
 				FACERECMODEL_FILEPATH = SDFOLDER.getAbsolutePath() + File.separator + FACERECMODEL_FILENAME;// model
 				LBPCASCADE_FILEPATH = SDFOLDER.getAbsolutePath() + File.separator + LBPCASCADE_FILENAME;// cascade
 
@@ -134,6 +134,8 @@ public class CommonUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		xFaceLibrary = new XFaceLibrary();
+		xFaceLibrary.xfacerec = xFaceLibrary.initFacerec();
 		isAppInit = true;
 		Log.i(TAG, "common util init app exit!");
 	}

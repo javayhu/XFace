@@ -20,6 +20,8 @@ import edu.thu.xface.util.ToastUtil;
  */
 public class SettingActivity extends Activity {
 
+	private XFaceLibrary xFaceLibrary;
+
 	private RelativeLayout rl_settings_model;
 	private RelativeLayout rl_settings_about;
 	private RelativeLayout rl_settings_users;
@@ -33,6 +35,8 @@ public class SettingActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setting);
+
+		xFaceLibrary = CommonUtil.xFaceLibrary;
 
 		// used to test!
 		rl_settings_suggestion = (RelativeLayout) findViewById(R.id.rl_settings_suggestion);
@@ -67,7 +71,7 @@ public class SettingActivity extends Activity {
 
 					@Override
 					protected Boolean doInBackground(Void... params) {
-						if (new XFaceLibrary().trainModel() > 0) {
+						if (xFaceLibrary.trainModel() > 0) {
 							return true;
 						}
 						return false;
@@ -77,7 +81,7 @@ public class SettingActivity extends Activity {
 					protected void onPostExecute(Boolean result) {
 						if (result) {
 							ToastUtil.showShortToast(getApplicationContext(), "模型建立成功咯!");
-						}else {
+						} else {
 							ToastUtil.showShortToast(getApplicationContext(), "建立模型失败啦!");
 						}
 					}

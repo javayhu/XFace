@@ -68,7 +68,7 @@ public:
 	//! reconstructs a sample
 	Mat reconstruct(const Mat& src);
 	//hujiawei add image
-	int addImage(const string& path, const Mat& image, int label);
+	void addImage(const string& path, const Mat& image, int label);
 	//! returns the eigenvectors of this PCA
 	Mat eigenvectors() const { return _eigenvectors; }
 	//! returns the eigenvalues of this PCA

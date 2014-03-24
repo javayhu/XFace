@@ -58,8 +58,7 @@ void Eigenfaces::compute(const vector<Mat>& src, const vector<int>& labels) {
 //		CV_Error(CV_StsUnsupportedFormat, error_message);
 //	}
 	// observations in row
-	Mat data = asRowMatrix(src, CV_64FC1);
-	//hjw opencv 64 float -> vector<Mat> -> Mat
+	Mat data = asRowMatrix(src, CV_64FC1); //hjw opencv 64 float -> vector<Mat> -> Mat
 	// number of samples
 	int n = data.rows; //5
 	// dimensionality of data
@@ -90,7 +89,7 @@ void Eigenfaces::compute(const vector<Mat>& src, const vector<int>& labels) {
 		Mat p = project(data.row(sampleIdx).clone()); //1*5
 		this->_projections.push_back(p); //_projections: vector<Mat>
 	}
-	LOGD("projection size is %d", _projections.size());
+	LOGD("#### eigenfaces compute projection size is %d", _projections.size());
 }
 
 void Eigenfaces::predict(const Mat& src, int &minClass, double &minDist) {
@@ -111,24 +110,24 @@ void Eigenfaces::predict(const Mat& src, int &minClass, double &minDist) {
 	if (_projections.empty()) {
 		minClass = -1; //-1 means do not know the person! or no image data in database!
 	}
+	LOGD("#### native facerec eigenfaces projections size=%d", _projections.size());
 	// project into PCA subspace
 	Mat q = project(src.reshape(1, 1));
 	// find 1-nearest neighbor
-	_threshold = DBL_MAX;
+//	_threshold = DBL_MAX;//hujiawei!//
 	minDist = DBL_MAX;
 	minClass = -1;
 	int minSampleIdx = -1;
 	for (int sampleIdx = 0; sampleIdx < _projections.size(); sampleIdx++) {
 		double dist = norm(_projections[sampleIdx], q, NORM_L2);
 		LOGD("predict for loop %d, dist=%f", sampleIdx, dist);
-		if ((dist < minDist) && (dist < _threshold)) {
+		if ((dist < minDist) /*&& (dist < _threshold)*/) { //hujiawei! current not use threshold!
 			minDist = dist;
 			minClass = _labels[sampleIdx];
 			minSampleIdx = sampleIdx;
 		}
 	}
-//    cout << "minDist is " << minDist << " minClass is " << minClass << " minSampleIndex is " << minSampleIdx << endl;
-	LOGD("minDis=%d, minClass=%d, minSampleIdx=%d", minDist, minClass, minSampleIdx);
+	LOGD("#### minDist=%f, minClass=%d, minSampleIdx=%d", minDist, minClass, minSampleIdx);
 }
 
 int Eigenfaces::predict(const Mat& src) {
@@ -138,13 +137,12 @@ int Eigenfaces::predict(const Mat& src) {
 	return label;
 }
 
-int Eigenfaces::addImage(const string& path, const Mat& image, int label){
-	int result = 1;
+void Eigenfaces::addImage(const string& path, const Mat& image, int label) {
 	Mat q = project(image.reshape(1, 1));
 	_projections.push_back(q);
 	_labels.push_back(label);
 	save(path);
-	return result;
+	LOGD("#### native add image after projections size=%d", _projections.size());
 }
 
 Mat Eigenfaces::project(const Mat& src) {
@@ -154,7 +152,7 @@ Mat Eigenfaces::project(const Mat& src) {
 	int n = src.rows;
 	int d = src.cols;
 	// make sure the data has the correct shape
-	if (W.rows != d) {//[hujiawei] sometimes when frame mat is null, this error will occur
+	if (W.rows != d) { //[hujiawei] sometimes when frame mat is null, this error will occur
 		string error_message = format(
 				"Wrong shapes for given matrices. Was size(src) = (%d,%d), size(W) = (%d,%d).",
 				src.rows, src.cols, W.rows, W.cols);
@@ -171,8 +169,7 @@ Mat Eigenfaces::project(const Mat& src) {
 	Mat X, Y;
 	// make sure you operate on correct type
 	src.convertTo(X, W.type()); //X has same data with src, but diffrent address.
-								// safe to do, because of above assertion
-								// safe to do, because of above assertion
+	// safe to do, because of above assertion
 	if (!mean.empty()) {
 		for (int i = 0; i < n; i++) {
 			Mat r_i = X.row(i);
@@ -181,8 +178,6 @@ Mat Eigenfaces::project(const Mat& src) {
 	}
 	// finally calculate projection as Y = (X-mean)*W
 	gemm(X, W, 1.0, Mat(), 0.0, Y);
-	//InputArray src1, InputArray src2, double alpha,
-	//InputArray src3, double gamma, OutputArray dst, int flags=0
 	return Y;
 }
 
@@ -224,7 +219,6 @@ Mat Eigenfaces::reconstruct(const Mat& src) {
 }
 
 void Eigenfaces::load(const string& path) {
-	//const FileStorage& fs
 	//read matrices
 	FileStorage fs(path, FileStorage::READ);
 	fs["num_components"] >> _num_components;
@@ -239,7 +233,6 @@ void Eigenfaces::load(const string& path) {
 }
 
 void Eigenfaces::save(const string& path) const {
-	//FileStorage& fs
 	// write matrices
 	FileStorage fs(path, FileStorage::WRITE);
 	fs << "num_components" << _num_components;
