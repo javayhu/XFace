@@ -19,7 +19,7 @@ public class XFaceLibrary {
 	// face recognition part
 	// ------------------------------------------------------------------------------
 
-	public long xfacerec = 0;//xface will be inited when app starts 
+	public long xfacerec = 0;// xface will be inited when app starts
 
 	public long trainModel() {
 		xfacerec = nativeTrainModel(xfacerec, CommonUtil.FACEDATA_FILEPATH, CommonUtil.ORLFACEDATA_FILEPATH,
@@ -38,16 +38,17 @@ public class XFaceLibrary {
 	}
 
 	public int facerec(Mat mat) {
-		return nativeFacerec(xfacerec, CommonUtil.FACERECMODEL_FILEPATH, mat.getNativeObjAddr(), CommonUtil.IMAGE_WIDTH,
-				CommonUtil.IMAGE_HEIGHT);
+		return nativeFacerec(xfacerec, CommonUtil.FACERECMODEL_FILEPATH, mat.getNativeObjAddr(),
+				CommonUtil.IMAGE_WIDTH, CommonUtil.IMAGE_HEIGHT);
 	}
 
-	public int destoryFacerec() {
-		return nativeDestoryFacerec(xfacerec);
+	public void destoryFacerec() {
+		nativeDestoryFacerec(xfacerec);
+		xfacerec = 0;
 	}
 
-	private static native long nativeTrainModel(long xfacrec, String datapath, String orlpath, String modelpath, int component,
-			double threshold);
+	private static native long nativeTrainModel(long xfacrec, String datapath, String orlpath, String modelpath,
+			int component, double threshold);
 
 	private static native void nativeAddImage(long xfacerec, String modelpath, long addr, int label);
 
@@ -55,7 +56,7 @@ public class XFaceLibrary {
 
 	private static native int nativeFacerec(long xfacerec, String modelpath, long addr, int width, int height);
 
-	private static native int nativeDestoryFacerec(long xfacerec);
+	private static native void nativeDestoryFacerec(long xfacerec);
 
 	// ------------------------------------------------------------------------------
 	// face detection part

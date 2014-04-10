@@ -35,7 +35,7 @@ extern "C" {
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeDestoryFacerec
  * Signature: (J)I
- */JNIEXPORT jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestoryFacerec(JNIEnv *, jclass,
+ */JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestoryFacerec(JNIEnv *, jclass,
 		jlong);
 /*
  * Class:     edu_thu_xface_libs_XFaceLibrary

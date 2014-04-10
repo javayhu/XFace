@@ -407,6 +407,7 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
 //				 (canvas.getHeight() - mCacheBitmap.getHeight()) / 2, null);
 				// hujiawei add begin
 				// ABC : Fixed for image rotation
+				// modify thest codes will change the camera frame image in the app
 				Matrix matrix = new Matrix();
 				int height_Canvas = canvas.getHeight();
 				int width_Canvas = canvas.getWidth();
@@ -417,8 +418,10 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
 				float f1 = (width_Canvas - width) / 2;
 				float f2 = (height_Canvas - height) / 2;
 				matrix.preTranslate(f1, f2);
+//				if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+//					matrix.postRotate(270f, (width_Canvas) / 2, (height_Canvas) / 2);//rotate clock wise
 				if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-					matrix.postRotate(270f, (width_Canvas) / 2, (height_Canvas) / 2);
+					matrix.postRotate(270f, (width_Canvas)/2, (height_Canvas)/2);
 				canvas.drawBitmap(mCacheBitmap, matrix, new Paint());
 				// add end
 

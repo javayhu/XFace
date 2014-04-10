@@ -117,7 +117,8 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
 	Eigenfaces* eigenfaces = ((Eigenfaces*) (xfacerec));
 	eigenfaces->addImage(modelpath, sample, label);
 //	result = (jlong) (&eigenfaces); //address changed! [hujiawei] I don't know why! --> different thread?!
-	LOGD("#### native add image ok, address is %lld", (jlong) (&eigenfaces));//though address changed, the heap object also changes
+	LOGD("#### native add image ok, address is %lld", (jlong) (&eigenfaces));
+	//though address changed, the heap object also changes
 	// end
 }
 
@@ -152,12 +153,13 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
 	const char* mpath = jenv->GetStringUTFChars(jmodelpath, NULL);
 	string modelpath(mpath);
 	jint result = -1;
-	Mat sample = *((Mat*) mataddr);
+	Mat sample = *((Mat*) mataddr); //480*720
 	if (sample.rows < sample.cols) { //when rows < cols, that is height < width
-		flip(sample.t(), sample, 0); //**no need to flip now!**wrong**
+		flip(sample.t(), sample, 0); //counter-clock wise 90
 	}
-	resize(sample, sample, Size(width, height)); //320*240->92*112
-//	imwrite("/mnt/sdcard/xface/sample.jpg", sample);
+	LOGD("#### gray image size is %d * %d", sample.rows, sample.cols);//rows=height 720 cols=width 480
+	resize(sample, sample, Size(width, height)); //480*720->92*112
+	imwrite("/mnt/sdcard/xface/sample.jpg", sample);
 
 	// eigenfaces
 	Eigenfaces eigenfaces = *((Eigenfaces*) (xfacerec));
@@ -175,14 +177,13 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
  * Class:     edu_thu_xface_libs_XFaceLibrary
  * Method:    nativeDestoryFacerec
  * Signature: ()I
- */JNIEXPORT jint JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestoryFacerec(JNIEnv * jenv,
+ */JNIEXPORT void JNICALL Java_edu_thu_xface_libs_XFaceLibrary_nativeDestoryFacerec(JNIEnv * jenv,
 		jclass jclazz, jlong xfacerec) {
 	LOGD("#### native destory facerec xfacerec=%lld", xfacerec);
 	if (xfacerec != 0) {
 		delete (Eigenfaces*) xfacerec;
 	}
 	LOGD("#### native destory facerec end");
-	return 1;
 }
 
 //------------------------------------------------------------------------------
@@ -338,10 +339,13 @@ inline void vector_Rect_to_Mat(vector<Rect>& v_rect, Mat& mat) {
 		jlong thiz, jlong imageGray, jlong faces) {
 	LOGD("Java_edu_thu_xface_libs_XFaceLibrary_nativeDetect enter");
 	try {
+//		Mat sample = *((Mat*) imageGray);
+//		flip(sample.t(), sample, 0);//counter-clock wise 90
 		vector<Rect> RectFaces;
 		((DetectionBasedTracker*) thiz)->process(*((Mat*) imageGray));
 		((DetectionBasedTracker*) thiz)->getObjects(RectFaces);
 		vector_Rect_to_Mat(RectFaces, *((Mat*) faces));
+//		flip(sample.t(), sample, 1);
 	} catch (cv::Exception& e) {
 		LOGD("nativeCreateObject caught cv::Exception: %s", e.what());
 		jclass je = jenv->FindClass("org/opencv/core/CvException");

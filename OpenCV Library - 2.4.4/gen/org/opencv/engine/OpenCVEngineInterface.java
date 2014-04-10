@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /Users/hujiawei/git/XFace/OpenCV Library - 2.4.4/src/org/opencv/engine/OpenCVEngineInterface.aidl
+ * Original file: /Volumes/hujiawei/Users/hujiawei/git/XFace/OpenCV Library - 2.4.4/src/org/opencv/engine/OpenCVEngineInterface.aidl
  */
 package org.opencv.engine;
 /**

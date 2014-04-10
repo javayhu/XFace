@@ -53,7 +53,6 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 	private XFaceLibrary xface;
 	private float mRelativeFaceSize = 0.2f;
 	private int mAbsoluteFaceSize = 0;
-
 	// // / face detection!
 
 	@Override
@@ -180,10 +179,12 @@ public class SignupCameraActivity extends Activity implements CvCameraViewListen
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.i(TAG, "on pause");
+		Log.i(TAG, "on pause and finish!");
 		if (mOpenCvCameraView != null) {
 			mOpenCvCameraView.disableView();
 		}
+		xface.destroryFacedetect();
+		SignupCameraActivity.this.finish();//
 	}
 
 	@Override
