@@ -7,4 +7,4 @@
     <item android:drawable="@drawable/title_btn_pressed" android:state_selected="true"/>
     <item android:drawable="@drawable/title_btn_normal"/>
 
-</selector><!-- From: file:/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/src/main/res/drawable/btn_title_function.xml -->
+</selector><!-- From: file:/Users/hujiawei/Github/XFace/AndroidStudio/XFace/XFacePCA/src/main/res/drawable/btn_title_function.xml -->

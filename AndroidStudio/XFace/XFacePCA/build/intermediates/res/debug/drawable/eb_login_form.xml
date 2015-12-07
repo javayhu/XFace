@@ -5,4 +5,4 @@
     <item android:drawable="@drawable/form_edit_pressed" android:state_focused="false" android:state_pressed="true"/>
     <item android:drawable="@drawable/form_edit_normal" android:state_focused="false"/>
 
-</selector><!-- From: file:/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/src/main/res/drawable/eb_login_form.xml -->
+</selector><!-- From: file:/Users/hujiawei/Github/XFace/AndroidStudio/XFace/XFacePCA/src/main/res/drawable/eb_login_form.xml -->

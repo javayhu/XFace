@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /Users/hujiawei/AndroidStudioProjects/XFace/OpenCVLibrary244/src/main/aidl/org/opencv/engine/OpenCVEngineInterface.aidl
+ * Original file: /Users/hujiawei/Github/XFace/AndroidStudio/XFace/OpenCVLibrary244/src/main/aidl/org/opencv/engine/OpenCVEngineInterface.aidl
  */
 package org.opencv.engine;
 /**

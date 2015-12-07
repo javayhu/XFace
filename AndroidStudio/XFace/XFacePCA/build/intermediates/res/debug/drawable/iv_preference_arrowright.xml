@@ -7,4 +7,4 @@
     <item android:drawable="@drawable/arrow_right_pressed" android:state_selected="true"/>
     <item android:drawable="@drawable/arrow_right"/>
 
-</selector><!-- From: file:/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/src/main/res/drawable/iv_preference_arrowright.xml -->
+</selector><!-- From: file:/Users/hujiawei/Github/XFace/AndroidStudio/XFace/XFacePCA/src/main/res/drawable/iv_preference_arrowright.xml -->

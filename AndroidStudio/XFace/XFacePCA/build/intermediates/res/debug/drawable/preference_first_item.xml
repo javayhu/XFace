@@ -4,4 +4,4 @@
     <item android:state_enabled="true" android:state_selected="true" android:drawable="@drawable/ic_preference_first_pressed" />
     <item android:state_enabled="true" android:state_pressed="true" android:drawable="@drawable/ic_preference_first_pressed" />
     <item android:drawable="@drawable/ic_preference_first_normal" />
-</selector><!-- From: file:/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/src/main/res/drawable/preference_first_item.xml -->
+</selector><!-- From: file:/Users/hujiawei/Github/XFace/AndroidStudio/XFace/XFacePCA/src/main/res/drawable/preference_first_item.xml -->

@@ -6,4 +6,4 @@
     <item android:drawable="@drawable/btn_check_off_normal" android:state_checked="false"/>
     <item android:drawable="@drawable/btn_check_on_normal" android:state_checked="true"/>
 
-</selector><!-- From: file:/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/src/main/res/drawable/checkbox_selector.xml -->
+</selector><!-- From: file:/Users/hujiawei/Github/XFace/AndroidStudio/XFace/XFacePCA/src/main/res/drawable/checkbox_selector.xml -->

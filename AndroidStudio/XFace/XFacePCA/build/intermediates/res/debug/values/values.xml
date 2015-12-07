@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/src/main/res/values/color.xml -->
+    <!-- From: file:/Users/hujiawei/Github/XFace/AndroidStudio/XFace/XFacePCA/src/main/res/values/color.xml -->
     <eat-comment/>
     <color name="app_default">#711098</color>
     <color name="black">#000000</color>
@@ -20,7 +20,7 @@
     <color name="text_toolbar_select">#711098</color>
     <declare-styleable name="CameraBridgeViewBase"><attr format="boolean" name="show_fps"/><attr format="integer" name="camera_id"><enum name="any" value="-1"/><enum name="back" value="0"/><enum name="front" value="1"/></attr></declare-styleable>
     <declare-styleable name="swipelistviewstyle"><attr format="dimension" name="right_width"/></declare-styleable>
-    <!-- From: file:/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/hujiawei/Github/XFace/AndroidStudio/XFace/XFacePCA/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -40,13 +40,13 @@
     <dimen name="text_toolbar_size">14sp</dimen>
     <dimen name="titlebar_height">45dp</dimen>
     <dimen name="toolbar_height">60dp</dimen>
-    <!-- From: file:/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/hujiawei/Github/XFace/AndroidStudio/XFace/XFacePCA/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="action_settings">Settings</string>
     <string name="app_name">XFace</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_test">TestActivity</string>
-    <!-- From: file:/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/hujiawei/Github/XFace/AndroidStudio/XFace/XFacePCA/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
