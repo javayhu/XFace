@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="pref_camera_entries">
+        <item>@string/pref_camera_label_front</item>
+        <item>@string/pref_camera_label_back</item>
+    </string-array>
+
+    <string-array name="pref_camera_values">
+        <item>@string/pref_camera_front</item>
+        <item>@string/pref_camera_back</item>
+    </string-array>
+
+    <string name="pref_camera_label_front">Front</string>
+    <string name="pref_camera_label_back">Back</string>
+    <string name="pref_camera_front">front</string>
+    <string name="pref_camera_back">back</string>
+
+    <string-array name="pref_model_entries">
+        <item>@string/pref_model_label_eigen</item>
+        <item>@string/pref_model_label_fisher</item>
+        <item>@string/pref_model_label_lbp</item>
+    </string-array>
+
+    <string-array name="pref_model_values">
+        <item>@string/pref_model_eigen</item>
+        <item>@string/pref_model_fisher</item>
+        <item>@string/pref_model_lbp</item>
+    </string-array>
+
+    <string name="pref_model_label_eigen">Eigen</string>
+    <string name="pref_model_label_fisher">Fisher</string>
+    <string name="pref_model_label_lbp">LBP</string>
+    <string name="pref_model_eigen">eigen</string>
+    <string name="pref_model_fisher">fisher</string>
+    <string name="pref_model_lbp">lbp</string>
+
+</resources>

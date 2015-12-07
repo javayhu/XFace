@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- action bar bg -->
+    <color name="thu_purple">#743481</color>
+
+    <color name="app_blue">#ff1ca8f4</color>
+    <color name="app_light_blue">#ff64c2f4</color>
+
+    <!-- text -->
+    <color name="app_white">#ffffff</color>
+
+</resources>

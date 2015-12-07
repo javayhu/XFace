@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_logo_upper"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_about_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/title_bar"
+        android:gravity="center_vertical" >
+
+        <Button
+            android:id="@+id/btn_about_back"
+            android:layout_width="@dimen/btn_titlebar_size"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/btn_title_back"
+            android:onClick="btn_about_back"
+            android:text="返回"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_titlebar_size" />
+
+        <TextView
+            android:id="@+id/tv_aboutus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="关于作者"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_titlebar_center" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/rl_about_copyright"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_about_copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:text="Copyright © 2013 Tsinghua University."
+            android:textColor="@color/text_default"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_about_copyrights"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:text="All Rights Resverved. "
+            android:textColor="@color/text_default"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_about_info"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_about_copyright"
+        android:layout_marginBottom="40dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/rl_about_version"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/preference_first_item"
+            android:clickable="true"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/iv_about_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:scaleType="matrix"
+                android:src="@drawable/settings_version" />
+
+            <TextView
+                android:id="@+id/tv_about_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/iv_about_version"
+                android:padding="8dp"
+                android:text="版本"
+                android:textColor="@color/text_preference_key"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_about_versionname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:padding="8dp"
+                android:text="ANDROID 0.1版"
+                android:textColor="@color/text_preference_key"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_about_team"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/preference_item"
+            android:clickable="true"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/iv_about_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:scaleType="matrix"
+                android:src="@drawable/settings_message" />
+
+            <TextView
+                android:id="@+id/tv_about_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/iv_about_team"
+                android:padding="8dp"
+                android:text="团队"
+                android:textColor="@color/text_preference_key"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_about_teamname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:padding="8dp"
+                android:text="Dophin Team"
+                android:textColor="@color/text_preference_key"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_about_us"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/preference_last_item"
+            android:clickable="true"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/iv_about_us"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:scaleType="matrix"
+                android:src="@drawable/settings_users" />
+
+            <TextView
+                android:id="@+id/tv_about_us"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/iv_about_us"
+                android:padding="8dp"
+                android:text="作者"
+                android:textColor="@color/text_preference_key"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_about_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:padding="8dp"
+                android:text="胡家威"
+                android:textColor="@color/text_preference_key"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout><!-- From: file:/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/src/main/res/layout/activity_about.xml -->

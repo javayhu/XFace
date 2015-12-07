@@ -1,0 +1,108 @@
+-- Merging decision tree log ---
+manifest
+ADDED from AndroidManifest.xml:2:1
+	xmlns:android
+		ADDED from AndroidManifest.xml:2:11
+	package
+		ADDED from AndroidManifest.xml:3:5
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from AndroidManifest.xml:13:5
+	android:name
+		ADDED from AndroidManifest.xml:13:22
+uses-permission#android.permission.CAMERA
+ADDED from AndroidManifest.xml:14:5
+	android:name
+		ADDED from AndroidManifest.xml:14:22
+uses-feature#android.hardware.camera
+ADDED from AndroidManifest.xml:16:5
+	android:required
+		ADDED from AndroidManifest.xml:18:9
+	android:name
+		ADDED from AndroidManifest.xml:17:9
+uses-feature#android.hardware.camera.autofocus
+ADDED from AndroidManifest.xml:19:5
+	android:required
+		ADDED from AndroidManifest.xml:21:9
+	android:name
+		ADDED from AndroidManifest.xml:20:9
+uses-feature#android.hardware.camera.front
+ADDED from AndroidManifest.xml:22:5
+	android:required
+		ADDED from AndroidManifest.xml:24:9
+	android:name
+		ADDED from AndroidManifest.xml:23:9
+uses-feature#android.hardware.camera.front.autofocus
+ADDED from AndroidManifest.xml:25:5
+	android:required
+		ADDED from AndroidManifest.xml:27:9
+	android:name
+		ADDED from AndroidManifest.xml:26:9
+application
+ADDED from AndroidManifest.xml:31:5
+MERGED from com.android.support:support-v4:20.0.0:17:5
+	android:label
+		ADDED from AndroidManifest.xml:33:9
+	android:icon
+		ADDED from AndroidManifest.xml:32:9
+	android:theme
+		ADDED from AndroidManifest.xml:34:9
+activity#edu.thu.xface.LogoActivity
+ADDED from AndroidManifest.xml:35:9
+	android:label
+		ADDED from AndroidManifest.xml:37:13
+	android:name
+		ADDED from AndroidManifest.xml:36:13
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:38:13
+action#android.intent.action.MAIN
+ADDED from AndroidManifest.xml:39:17
+	android:name
+		ADDED from AndroidManifest.xml:39:25
+category#android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:41:17
+	android:name
+		ADDED from AndroidManifest.xml:41:27
+activity#edu.thu.xface.SignupActivity
+ADDED from AndroidManifest.xml:44:9
+	android:name
+		ADDED from AndroidManifest.xml:44:19
+activity#edu.thu.xface.SignupCameraActivity
+ADDED from AndroidManifest.xml:45:9
+	android:name
+		ADDED from AndroidManifest.xml:45:19
+activity#edu.thu.xface.FacerecCameraActivity
+ADDED from AndroidManifest.xml:46:9
+	android:name
+		ADDED from AndroidManifest.xml:46:19
+activity#edu.thu.xface.AboutActivity
+ADDED from AndroidManifest.xml:47:9
+	android:name
+		ADDED from AndroidManifest.xml:47:19
+activity#edu.thu.xface.SettingActivity
+ADDED from AndroidManifest.xml:48:9
+	android:name
+		ADDED from AndroidManifest.xml:48:19
+activity#edu.thu.xface.UsersActivity
+ADDED from AndroidManifest.xml:49:9
+	android:name
+		ADDED from AndroidManifest.xml:49:19
+activity#edu.thu.xface.UserpicsActivity
+ADDED from AndroidManifest.xml:50:9
+	android:name
+		ADDED from AndroidManifest.xml:50:19
+activity#edu.thu.xface.TestActivity
+ADDED from AndroidManifest.xml:51:9
+	android:name
+		ADDED from AndroidManifest.xml:51:19
+uses-sdk
+INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
+MERGED from XFace:OpenCVLibrary244:unspecified:7:5
+MERGED from com.android.support:support-v4:20.0.0:16:5
+	android:targetSdkVersion
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	android:minSdkVersion
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0

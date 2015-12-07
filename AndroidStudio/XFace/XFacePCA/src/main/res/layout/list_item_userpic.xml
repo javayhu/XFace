@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_point_bg"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:id="@+id/userpics_item_left"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp" >
+        
+        <ImageView
+            android:id="@+id/iv_userpics_pic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_launcher" />
+
+        <!-- <TextView
+            android:id="@+id/tv_list_userpic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="15sp" /> -->
+
+        <TextView
+            android:id="@+id/tv_list_filename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_userpics_pic"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/grey" />
+    </RelativeLayout>
+
+<!--     <RelativeLayout
+        android:id="@+id/userpics_item_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/right_bg" >
+
+        <TextView
+            android:id="@+id/userpics_item_righttxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableLeft="@drawable/del_icon_normal"
+            android:gravity="center"
+            android:text="鍒犻櫎"
+            android:textColor="@color/blur_bg" />
+    </RelativeLayout>
+ -->
+</LinearLayout>

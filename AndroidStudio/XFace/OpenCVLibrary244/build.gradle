@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+android {
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+//        applicationId "org.opencv" //liabrary can not set application id
+        minSdkVersion 16
+        targetSdkVersion 20
+    }
+
+    buildTypes {
+        release {
+//            runProguard false  //newer version Gradle do not contain this command
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+}

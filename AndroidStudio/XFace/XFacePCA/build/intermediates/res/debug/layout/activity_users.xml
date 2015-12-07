@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_users_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/title_bar"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btn_users_back"
+            android:layout_width="@dimen/btn_titlebar_size"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/btn_title_back"
+            android:onClick="btn_users_back"
+            android:text="返回"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_titlebar_size" />
+
+        <TextView
+            android:id="@+id/tv_userlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="用户列表"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_titlebar_center" />
+    </RelativeLayout>
+
+    <!-- edu.thu.xface.SwipeListView -->
+
+    <ListView
+        android:id="@+id/lv_users_userlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_users_titlebar"
+        android:background="#fff4f7f9"
+        android:cacheColorHint="#00000000"
+        android:divider="#dddbdb"
+        android:dividerHeight="1dp" />
+
+</RelativeLayout><!-- From: file:/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/src/main/res/layout/activity_users.xml -->

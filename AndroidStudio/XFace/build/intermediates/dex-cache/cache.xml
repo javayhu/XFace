@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/hujiawei/AndroidStudioProjects/XFacePCA_hjw/XFacePCA/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
+        <dex dex="/Users/hujiawei/AndroidStudioProjects/XFacePCA_hjw/XFacePCA/build/intermediates/pre-dexed/debug/classes-21ba46cc27f226a38f192b8a7d8176c74428d346.jar" />
+    </item>
+    <item
+        jar="/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
+        <dex dex="/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-08e450226e3701239c00506e9d5f0a70ab113a5e.jar" />
+    </item>
+    <item
+        jar="/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
+        <dex dex="/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/build/intermediates/pre-dexed/debug/classes-5548bf178bfeffdc155460885df1855f78aece0e.jar" />
+    </item>
+    <item
+        jar="/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/build/intermediates/exploded-aar/XFace/OpenCVLibrary244/unspecified/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="d8f7a8012d0ebbff692e7bb68841f8006f92c24d">
+        <dex dex="/Users/hujiawei/AndroidStudioProjects/XFace/XFacePCA/build/intermediates/pre-dexed/debug/classes-c61aa6f24be83b7719e74e4974e636721ead30d9.jar" />
+    </item>
+    <item
+        jar="/Users/hujiawei/AndroidStudioProjects/XFacePCA_hjw/XFacePCA/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
+        <dex dex="/Users/hujiawei/AndroidStudioProjects/XFacePCA_hjw/XFacePCA/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-c9d4752977a660ce27a3eb00a28e652caccabd3e.jar" />
+    </item>
+    <item
+        jar="/Users/hujiawei/AndroidStudioProjects/XFacePCA_hjw/XFacePCA/build/intermediates/exploded-aar/XFacePCA_hjw/OpenCVLibrary244/unspecified/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="5fc92efd9512eaecf4fc251d091dcdc9f1e6cec5">
+        <dex dex="/Users/hujiawei/AndroidStudioProjects/XFacePCA_hjw/XFacePCA/build/intermediates/pre-dexed/debug/classes-7bb958b8da18f94a464e2c3f7a47df0f65300b94.jar" />
+    </item>
+    <item
+        jar="/Users/hujiawei/Android/android_sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa">
+        <dex dex="/Users/hujiawei/AndroidStudioProjects/XFacePCA_hjw/XFacePCA/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-6b24ed8e9bd8c5934827930d2615d04e7153ec21.jar" />
+    </item>
+
+</items>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mface.thu.edu.cn.mface.SettingsActivity">
+
+    <PreferenceCategory android:title="@string/pref_category_camera">
+
+        <ListPreference
+            android:title="@string/pref_camera_title"
+            android:key="@string/pref_camera_key"
+            android:defaultValue="@string/pref_camera_front"
+            android:summary="@string/pref_camera_label_front"
+            android:entryValues="@array/pref_camera_values"
+            android:entries="@array/pref_camera_entries" />
+
+        <CheckBoxPreference
+            android:title="@string/pref_sound_title"
+            android:key="@string/pref_sound_key"
+            android:defaultValue="true"
+            android:summaryOff="@string/pref_sound_false"
+            android:summaryOn="@string/pref_sound_true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_category_functions">
+
+        <ListPreference
+            android:key="@string/pref_model_key"
+            android:title="@string/pref_model_title"
+            android:defaultValue="@string/pref_model_lbp"
+            android:entryValues="@array/pref_model_values"
+            android:entries="@array/pref_model_entries" />
+
+        <Preference
+            android:key="@string/pref_userpics_key"
+            android:title="@string/pref_userpics_title"
+            android:summary="@string/pref_userpics_summary" />
+
+        <Preference
+            android:key="@string/pref_buildmodel_key"
+            android:title="@string/pref_buildmodel_title"
+            android:summary="@string/pref_buildmodel_summary" />
+
+        <Preference
+            android:key="@string/pref_cleandata_key"
+            android:title="@string/pref_cleandata_title"
+            android:summary="@string/pref_cleandata_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_category_copyright">
+
+        <Preference
+            android:key="@string/pref_opencv_key"
+            android:title="@string/pref_opencv_title"
+            android:summary="@string/pref_opencv_summary">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://opencv.org" />
+        </Preference>
+
+        <Preference
+            android:key="@string/pref_author_key"
+            android:title="@string/pref_author_title"
+            android:summary="@string/pref_author_summary">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://hujiaweibujidao.github.io/" />
+        </Preference>
+
+        <Preference
+            android:key="@string/pref_apptest_key"
+            android:title="@string/pref_apptest_title"
+            android:summary="@string/pref_apptest_summary" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,20 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        //Error:Library projects cannot set applicationId. applicationId is set to 'org.opencv' in default config.
+        //applicationId "org.opencv"
+        minSdkVersion 9
+        targetSdkVersion 20
+    }
+
+    buildTypes {
+        release {
+            //runProguard false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}

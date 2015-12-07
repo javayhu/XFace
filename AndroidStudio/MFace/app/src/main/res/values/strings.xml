@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <!--action-->
+    <string name="action_settings">Settings</string>
+
+    <!--logo-->
+    <!--<string name="title_activity_logo">Mobile Face</string>-->
+    <!--<string name="logo_center">Mobile Face</string>-->
+    <string name="logo_register">Go to Take Picture!</string>
+    <string name="logo_recognition">Go to Face Recognition!</string>
+    <string name="logo_settings">Go to Application Settings!</string>
+
+    <!-- register -->
+    <string name="title_activity_register">Register</string>
+    <string name="register_finduser">Find your name in User List</string>
+    <string name="register_newuser">Create a new User Name!</string>
+    <!--\n click button to save your photo-->
+    <string name="register_hellouser">Hello %s \n click preview to switch camera </string>
+    <string name="register_takepicture">Take Picture Now!</string>
+
+    <!-- Recognition -->
+    <string name="title_activity_recognition">Recognition</string>
+    <string name="recognition_result">Welcome back, %s \n click preview to switch camera</string>
+    <string name="recognition_finish">OK, That is RIGHT</string>
+
+    <!-- Settings -->
+    <string name="title_activity_settings">Settings</string>
+    <string name="pref_category_camera">Camera</string>
+    <string name="pref_camera_title">Camera</string>
+    <string name="pref_camera_key">camera</string>
+    <string name="pref_sound_true">Soundable</string>
+    <string name="pref_sound_false">No Sound</string>
+    <string name="pref_sound_key">sound</string>
+    <string name="pref_sound_title">Sound</string>
+    <string name="pref_category_functions">Functions</string>
+    <string name="pref_userpics_key">userpics</string>
+    <string name="pref_userpics_title">See User Pictures</string>
+    <string name="pref_userpics_summary">If you have installed a file manager, you can click here to see user photos saved</string>
+    <string name="pref_buildmodel_key">buildmodel</string>
+    <string name="pref_buildmodel_title">Rebuild Model Now</string>
+    <string name="pref_buildmodel_summary">If you currently add some user photos, you may wanna train the model again</string>
+    <string name="pref_cleandata_key">cleardata</string>
+    <string name="pref_cleandata_title">Clean App Data</string>
+    <string name="pref_cleandata_summary">All data includes images and settings will be cleaned, and the app will be the same as just installed</string>
+    <string name="pref_model_key">model</string>
+    <string name="pref_model_title">Change your Model</string>
+    <string name="pref_model_summary">Current model is %s. Change it if the current model is not working well.</string>
+    <string name="pref_category_copyright">CopyRight</string>
+    <string name="pref_author_key">author</string>
+    <string name="pref_author_title">Hujiawei Bujidao</string>
+    <string name="pref_author_summary">Navigate to hujiaweibujidao.github.io/</string>
+    <string name="pref_opencv_key">opencv</string>
+    <string name="pref_opencv_title">OpenCV Website</string>
+    <string name="pref_opencv_summary">Navigate to http://opencv.org</string>
+    <string name="pref_apptest_key">apptest</string>
+    <string name="pref_apptest_title">Hidden Test</string>
+    <string name="pref_apptest_summary">This is some test action, if you do not know what will happen, please please do not touch it</string>
+
+    <!--dialog-->
+    <string name="dialog_wait">Waiting</string>
+    <string name="dialog_model_training">Training model...</string>
+    <string name="dialog_register">New User</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_userlist">User List</string>
+    <string name="dialog_name">please input your name</string>
+    <string name="dialog_nameNotEmpty">User Name can not be empty!</string>
+    <string name="dialog_nameExists">User Name Exists!</string>
+    <string name="dialog_nameis">Your name is %s</string>
+
+    <!--toast-->
+    <string name="toast_trylater">Sorry, Try it Later...</string>
+    <string name="toast_usernotenough">User number is less than 2!</string>
+    <string name="toast_modeltrained">Model trained successfully!</string>
+    <string name="toast_photonotenough">Photo number is less than 2!</string>
+    <string name="toast_recognition_inifail">Face recognizer is not trained yet, train it first!</string>
+    <string name="toast_recognition_iniok">Face recognizer successfully initialized</string>
+    <string name="toast_register_imagesave">image saved to %s</string>
+    <string name="recognition_result_none">I do not know you. label = %s </string>
+    <string name="dialog_app_initialization">Mobile Face is COMING...</string>
+    <string name="toast_wrong_user">NO! You could not be HE or SHE!</string>
+
+
+    <!--hujiawei-->
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="app_name">Point Face</string>
+    <string name="title_activity_logo">Point Face</string>
+    <string name="logo_center">Point Face</string>
+    <string name="title_activity_main">Point Face</string>
+    <string name="logo_point">Point your face!</string>
+    <string name="action_point">Point!</string>
+    <string name="dialog_pointing_face">Pointing the face......</string>
+
+</resources>

@@ -1,0 +1,10 @@
+-1 hidden_user_1 4
+-2 hidden_user_2 4
+-3 hidden_user_3 4
+-4 hidden_user_4 5
+-5 hidden_user_5 5
+-6 hidden_user_6 3
+-7 hidden_user_7 3
+-8 hidden_user_8 8
+-9 hidden_user_9 3
+-10 hidden_user_10 2

@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionBarStyle">@style/ActionBar.Solid.MFace</item>
+    </style>
+
+    <style name="MFaceTheme" parent="AppTheme">
+        <item name="actionBarStyle">@style/ActionBar.Solid.MFace.NoTitle</item>
+    </style>
+
+    <style name="ActionBar.Solid.MFace" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@color/app_blue</item>
+    </style>
+
+    <style name="ActionBar.Solid.MFace.NoTitle" parent="@style/ActionBar.Solid.MFace">
+        <item name="displayOptions">useLogo|showHome</item>
+        <item name="logo">@drawable/ic_logo</item>
+    </style>
+
+</resources>

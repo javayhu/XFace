@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_userpics_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/title_bar"
+        android:gravity="center_vertical" >
+
+        <Button
+            android:id="@+id/btn_userpics_back"
+            android:layout_width="@dimen/btn_titlebar_size"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/btn_title_back"
+            android:onClick="btn_userpics_back"
+            android:text="返回"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_titlebar_size" />
+
+        <TextView
+            android:id="@+id/tv_userlist_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="用户图片列表"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_titlebar_center" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_userpics_userlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_userpics_titlebar"
+        android:background="#fff4f7f9"
+        android:cacheColorHint="#00000000"
+        android:divider="#dddbdb"
+        android:dividerHeight="1dp" />
+
+</RelativeLayout>

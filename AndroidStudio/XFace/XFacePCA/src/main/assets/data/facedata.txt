@@ -1,0 +1,3 @@
+/mnt/sdcard/xface/user/1/hujiaweipro.png;1
+/mnt/sdcard/xface/user/1/hujiaweisample.jpg;1
+/mnt/sdcard/xface/user/2/shervinpro.png;2
