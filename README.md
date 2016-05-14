@@ -22,4 +22,4 @@ AndroidStudio目录下是后来用AndroidStudio开发的改进版本，运行较
 
 [其他文章链接地址](http://hujiaweibujidao.github.io/mobile/)
 
-如果程序运行有问题，再和我联系之前请确保你阅读了上面的文章内容，谢谢。
+如果程序运行有问题，在和我联系之前请确保你已经阅读并理解了上面文章中的内容，谢谢。
